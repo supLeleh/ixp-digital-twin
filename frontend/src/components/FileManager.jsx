@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, ListGroup, Modal, Alert, Tabs, Tab, Badge } from 'react-bootstrap';
+import ConfigForm from './ConfigForm';
 
 const FileManager = () => {
   const [configs, setConfigs] = useState([]);
@@ -190,11 +191,11 @@ const FileManager = () => {
       setCurrentFile({ ...file });
       setIsEditing(true);
     } else {
-      const template = type === 'config' 
-        ? { 
-            name: 'ixp.conf', 
-            content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 4) 
-          }
+      const template = type === 'config'
+        ? {
+          name: 'ixp.conf',
+          content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 4)
+        }
         : { name: 'nuovo-resource.json', content: '' };
       setCurrentFile(template);
       setIsEditing(false);
@@ -261,7 +262,7 @@ const FileManager = () => {
   const renderFileList = (files, type) => (
     <ListGroup className="mt-3">
       {files.length === 0 ? (
-        <ListGroup.Item className="text-center" style={{color: 'hsl(200, 50%, 60%)'}}>
+        <ListGroup.Item className="text-center" style={{ color: 'hsl(200, 50%, 60%)' }}>
           Nessun file presente
         </ListGroup.Item>
       ) : (
@@ -298,7 +299,7 @@ const FileManager = () => {
   return (
     <>
       <h1>IXP File Manager</h1>
-      
+
       {error && <Alert variant="danger" dismissible onClose={() => setError('')}>{error}</Alert>}
 
       <Tabs
@@ -321,65 +322,65 @@ const FileManager = () => {
         </Tab>
       </Tabs>
 
-      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+      <Modal show={showModal} onHide={handleCloseModal} size="xl" scrollable>
         <Modal.Header closeButton>
           <Modal.Title>
             {isEditing ? 'Modifica' : 'Crea'} {fileType === 'config' ? 'Config IXP' : 'Resource'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Nome file</Form.Label>
-              <Form.Control
-                name="name"
-                value={currentFile.name}
-                onChange={handleChange}
-                disabled={isEditing}
-                placeholder={fileType === 'config' ? 'ixp.conf' : 'nome.json / nome.dump / nome.conf'}
-              />
-              {fileType === 'config' ? (
-                <Form.Text className="text-muted">
-                  Deve terminare con .conf (es: ixp.conf, namex.conf)
-                </Form.Text>
-              ) : (
+          {fileType === 'config' ? (
+            <ConfigForm
+              initialData={currentFile.content}
+              onSave={(jsonContent) => {
+                setCurrentFile(prev => ({ ...prev, content: jsonContent }));
+                handleSave();
+              }}
+              onCancel={handleCloseModal}
+            />
+          ) : (
+            <Form>
+              <Form.Group>
+                <Form.Label>Nome file</Form.Label>
+                <Form.Control
+                  name="name"
+                  value={currentFile.name}
+                  onChange={handleChange}
+                  disabled={isEditing}
+                  placeholder="nome.json / nome.dump / nome.conf"
+                />
                 <Form.Text className="text-muted">
                   Estensioni valide: .json, .dump, .conf
                 </Form.Text>
-              )}
-            </Form.Group>
-            <Form.Group className="mt-3">
-              <Form.Label>
-                Contenuto {fileType === 'config' && '(Struttura JSON IXP)'}
-              </Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={fileType === 'config' ? 16 : 8}
-                name="content"
-                value={currentFile.content}
-                onChange={handleChange}
-                style={{ 
-                  fontFamily: 'monospace', 
-                  fontSize: '13px',
-                  lineHeight: '1.5'
-                }}
-              />
-              {fileType === 'config' && (
-                <Form.Text className="text-muted">
-                  Campi obbligatori: scenario_name, peering_lan, route_servers
-                </Form.Text>
-              )}
-            </Form.Group>
-          </Form>
+              </Form.Group>
+              <Form.Group className="mt-3">
+                <Form.Label>Contenuto</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={8}
+                  name="content"
+                  value={currentFile.content}
+                  onChange={handleChange}
+                  style={{
+                    fontFamily: 'monospace',
+                    fontSize: '13px',
+                    lineHeight: '1.5'
+                  }}
+                />
+              </Form.Group>
+            </Form>
+          )}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Annulla
-          </Button>
-          <Button variant="primary" onClick={handleSave}>
-            {isEditing ? 'Salva modifiche' : 'Crea'}
-          </Button>
-        </Modal.Footer>
+        {fileType !== 'config' && (
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Annulla
+            </Button>
+            <Button variant="primary" onClick={handleSave}>
+              {isEditing ? 'Salva modifiche' : 'Crea'}
+            </Button>
+          </Modal.Footer>
+        )}
       </Modal>
     </>
   );
