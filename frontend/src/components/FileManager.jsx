@@ -1,15 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, ListGroup, Modal, Alert, Tabs, Tab } from 'react-bootstrap';
+import { Button, Form, ListGroup, Modal, Alert, Tabs, Tab, Badge } from 'react-bootstrap';
 
 const FileManager = () => {
   const [configs, setConfigs] = useState([]);
   const [resources, setResources] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentFile, setCurrentFile] = useState({ name: '', content: '' });
-  const [fileType, setFileType] = useState('config'); // 'config' o 'resource'
+  const [fileType, setFileType] = useState('config');
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('configs');
+
+  // Template IXP Config
+  const IXP_CONFIG_TEMPLATE = {
+    scenario_name: "namex_ixp",
+    host_interface: null,
+    peering_lan: {
+      "4": "193.201.28.0/23",
+      "6": "2001:7f8:10::/48"
+    },
+    peering_configuration: {
+      type: "ixp_manager",
+      path: "config_peerings.json"
+    },
+    rib_dumps: {
+      type: "open_bgpd",
+      dumps: {
+        "4": "rib_v4.dump",
+        "6": "rib_v6.dump"
+      }
+    },
+    route_servers: {
+      rs1_v4: {
+        type: "open_bgpd",
+        image: "kathara/openbgpd",
+        name: "rs1_v4",
+        as_num: 196959,
+        config: "rs1-rom-v4.conf",
+        address: "193.201.28.60"
+      },
+      rs1_v6: {
+        type: "open_bgpd",
+        name: "rs1_v6",
+        image: "kathara/openbgpd",
+        as_num: 196959,
+        config: "rs1-rom-v6.conf",
+        address: "2001:7f8:10::19:6959"
+      }
+    }
+  };
 
   // Funzioni per CONFIG
   const fetchConfigs = async () => {
@@ -151,10 +190,12 @@ const FileManager = () => {
       setCurrentFile({ ...file });
       setIsEditing(true);
     } else {
-      // Template per nuovo file CONFIG
       const template = type === 'config' 
-        ? { name: 'nuovo-config.json', content: JSON.stringify({ name: "", settings: {} }, null, 2) }
-        : { name: 'nuovo-resource.txt', content: '' };
+        ? { 
+            name: 'ixp.conf', 
+            content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 4) 
+          }
+        : { name: 'nuovo-resource.json', content: '' };
       setCurrentFile(template);
       setIsEditing(false);
     }
@@ -207,10 +248,20 @@ const FileManager = () => {
     }
   };
 
+  const getFileExtensionBadge = (filename) => {
+    const ext = filename.split('.').pop().toUpperCase();
+    const colorMap = {
+      'CONF': 'primary',
+      'JSON': 'info',
+      'DUMP': 'warning'
+    };
+    return <Badge bg={colorMap[ext] || 'secondary'}>{ext}</Badge>;
+  };
+
   const renderFileList = (files, type) => (
     <ListGroup className="mt-3">
       {files.length === 0 ? (
-        <ListGroup.Item className="text-center text-muted">
+        <ListGroup.Item className="text-center" style={{color: 'hsl(200, 50%, 60%)'}}>
           Nessun file presente
         </ListGroup.Item>
       ) : (
@@ -219,7 +270,7 @@ const FileManager = () => {
             <div className="d-flex justify-content-between align-items-center">
               <div>
                 <strong>{file.name}</strong>
-                {type === 'config' && <span className="badge bg-info ms-2">JSON</span>}
+                <span className="ms-2">{getFileExtensionBadge(file.name)}</span>
               </div>
               <div>
                 <Button
@@ -246,7 +297,7 @@ const FileManager = () => {
 
   return (
     <>
-      <h1>File Manager - IXP</h1>
+      <h1>IXP File Manager</h1>
       
       {error && <Alert variant="danger" dismissible onClose={() => setError('')}>{error}</Alert>}
 
@@ -255,14 +306,14 @@ const FileManager = () => {
         onSelect={(k) => setActiveTab(k)}
         className="mb-3"
       >
-        <Tab eventKey="configs" title="Configurations (JSON)">
+        <Tab eventKey="configs" title={`IXP Configurations (${configs.length})`}>
           <Button variant="primary" onClick={() => handleShowModal(null, 'config')}>
-            Nuovo Config
+            Nuovo Config (.conf)
           </Button>
           {renderFileList(configs, 'config')}
         </Tab>
 
-        <Tab eventKey="resources" title="Resources (TXT)">
+        <Tab eventKey="resources" title={`Resources (${resources.length})`}>
           <Button variant="primary" onClick={() => handleShowModal(null, 'resource')}>
             Nuovo Resource
           </Button>
@@ -273,7 +324,7 @@ const FileManager = () => {
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>
-            {isEditing ? 'Modifica' : 'Crea'} {fileType === 'config' ? 'Config' : 'Resource'}
+            {isEditing ? 'Modifica' : 'Crea'} {fileType === 'config' ? 'Config IXP' : 'Resource'}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -285,28 +336,37 @@ const FileManager = () => {
                 value={currentFile.name}
                 onChange={handleChange}
                 disabled={isEditing}
+                placeholder={fileType === 'config' ? 'ixp.conf' : 'nome.json / nome.dump / nome.conf'}
               />
-              {fileType === 'config' && (
+              {fileType === 'config' ? (
                 <Form.Text className="text-muted">
-                  Deve terminare con .json
+                  Deve terminare con .conf (es: ixp.conf, namex.conf)
+                </Form.Text>
+              ) : (
+                <Form.Text className="text-muted">
+                  Estensioni valide: .json, .dump, .conf
                 </Form.Text>
               )}
             </Form.Group>
             <Form.Group className="mt-3">
               <Form.Label>
-                Contenuto {fileType === 'config' && '(JSON)'}
+                Contenuto {fileType === 'config' && '(Struttura JSON IXP)'}
               </Form.Label>
               <Form.Control
                 as="textarea"
-                rows={fileType === 'config' ? 12 : 6}
+                rows={fileType === 'config' ? 16 : 8}
                 name="content"
                 value={currentFile.content}
                 onChange={handleChange}
-                style={{ fontFamily: 'monospace', fontSize: '14px' }}
+                style={{ 
+                  fontFamily: 'monospace', 
+                  fontSize: '13px',
+                  lineHeight: '1.5'
+                }}
               />
               {fileType === 'config' && (
                 <Form.Text className="text-muted">
-                  Struttura richiesta: {`{ "name": "...", "settings": {...} }`}
+                  Campi obbligatori: scenario_name, peering_lan, route_servers
                 </Form.Text>
               )}
             </Form.Group>
