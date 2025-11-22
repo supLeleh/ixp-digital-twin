@@ -9,7 +9,8 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' })); // Aumenta il limite a 50MB
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 const CONFIGS_DIR = path.join(__dirname, 'ixpconfigs');
 const RESOURCES_DIR = path.join(__dirname, 'resources');
