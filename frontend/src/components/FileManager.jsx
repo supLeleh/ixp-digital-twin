@@ -11,7 +11,7 @@ const FileManager = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('configs');
-  
+
   // Ref per input file
   const fileInputRef = useRef(null);
 
@@ -187,7 +187,7 @@ const FileManager = () => {
     if (!file) return;
 
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
       const content = e.target.result;
       const fileName = file.name;
@@ -198,7 +198,7 @@ const FileManager = () => {
           setError('I file config devono avere estensione .conf');
           return;
         }
-        
+
         // Verifica che sia un JSON valido
         try {
           JSON.parse(content);
@@ -210,7 +210,7 @@ const FileManager = () => {
         // Validazione per resources
         const validExtensions = ['.json', '.dump', '.conf'];
         const hasValidExt = validExtensions.some(ext => fileName.endsWith(ext));
-        
+
         if (!hasValidExt) {
           setError('I file resource devono avere estensione .json, .dump o .conf');
           return;
@@ -230,7 +230,7 @@ const FileManager = () => {
     };
 
     reader.readAsText(file);
-    
+
     // Reset input per permettere di caricare lo stesso file più volte
     event.target.value = '';
   };
@@ -245,11 +245,11 @@ const FileManager = () => {
       setCurrentFile({ ...file });
       setIsEditing(true);
     } else {
-      const template = type === 'config' 
-        ? { 
-            name: 'ixp.conf', 
-            content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 4) 
-          }
+      const template = type === 'config'
+        ? {
+          name: 'ixp.conf',
+          content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 4)
+        }
         : { name: 'nuovo-resource.json', content: '' };
       setCurrentFile(template);
       setIsEditing(false);
@@ -316,7 +316,7 @@ const FileManager = () => {
   const renderFileList = (files, type) => (
     <ListGroup className="mt-3">
       {files.length === 0 ? (
-        <ListGroup.Item className="text-center" style={{color: 'hsl(200, 50%, 60%)'}}>
+        <ListGroup.Item className="text-center" style={{ color: 'hsl(200, 50%, 60%)' }}>
           Nessun file presente
         </ListGroup.Item>
       ) : (
@@ -353,7 +353,7 @@ const FileManager = () => {
   return (
     <>
       <h1>IXP File Manager</h1>
-      
+
       {error && <Alert variant="danger" dismissible onClose={() => setError('')}>{error}</Alert>}
 
       {/* Input file nascosto */}
@@ -405,10 +405,19 @@ const FileManager = () => {
           {fileType === 'config' ? (
             <ConfigForm
               initialData={currentFile.content}
+              initialName={currentFile.name}  // Passa il nome del file
               isEditing={isEditing}
-              onSave={(jsonContent) => {
-                setCurrentFile(prev => ({ ...prev, content: jsonContent }));
-                handleSave();
+              onSave={(fileData) => {  // Ora riceve un oggetto con name e content
+                setCurrentFile(fileData);
+                // Salva con il nome aggiornato
+                if (isEditing) {
+                  updateConfig(fileData);
+                } else {
+                  createConfig(fileData);
+                }
+                if (!error) {
+                  setShowModal(false);
+                }
               }}
               onCancel={handleCloseModal}
             />
@@ -435,8 +444,8 @@ const FileManager = () => {
                   name="content"
                   value={currentFile.content}
                   onChange={handleChange}
-                  style={{ 
-                    fontFamily: 'monospace', 
+                  style={{
+                    fontFamily: 'monospace',
                     fontSize: '13px',
                     lineHeight: '1.5'
                   }}

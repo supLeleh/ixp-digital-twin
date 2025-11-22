@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
@@ -35,4 +38,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* ========== Nuove regole per navbar e routing ========== */
+
+/* Fix navbar - evita che prenda tutta l'altezza */
+nav.navbar {
+  flex-shrink: 0;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+/* Override Bootstrap navbar per tema chiaro */
+.navbar-toggler {
+  border-color: #1565c0 !important;
+}
+
+/* Stili bottoni hover */
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Animazione per i badge di stato */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.badge {
+  animation: pulse 2s ease-in-out infinite;
 }

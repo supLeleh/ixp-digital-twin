@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Button, Card, Accordion, Alert } from 'react-bootstrap';
 
-const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
+const ConfigForm = ({ initialData, initialName = '', onSave, onCancel, isEditing = false }) => {
   const getInitialConfig = () => {
     if (isEditing && initialData) {
       try {
@@ -24,6 +24,7 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
   };
 
   const [config, setConfig] = useState(getInitialConfig());
+  const [fileName, setFileName] = useState(initialName || '');
   const [errors, setErrors] = useState({});
   const [showValidationError, setShowValidationError] = useState(false);
 
@@ -38,7 +39,10 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
         console.error('Errore nel parsing del config:', e);
       }
     }
-  }, [initialData, isEditing]);
+    if (initialName) {
+      setFileName(initialName);
+    }
+  }, [initialData, initialName, isEditing]);
 
   const handleChange = (path, value) => {
     setConfig(prev => {
@@ -55,11 +59,21 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
       return updated;
     });
 
-    // Rimuovi errore quando l'utente compila il campo
     if (errors[path]) {
       setErrors(prev => {
         const updated = { ...prev };
         delete updated[path];
+        return updated;
+      });
+    }
+  };
+
+  const handleFileNameChange = (e) => {
+    setFileName(e.target.value);
+    if (errors['fileName']) {
+      setErrors(prev => {
+        const updated = { ...prev };
+        delete updated['fileName'];
         return updated;
       });
     }
@@ -103,7 +117,6 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
       }
     }));
 
-    // Rimuovi errore per questo campo
     const errorKey = `route_servers.${rsKey}.${field}`;
     if (errors[errorKey]) {
       setErrors(prev => {
@@ -116,6 +129,13 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
 
   const validateForm = () => {
     const newErrors = {};
+
+    // Valida nome file
+    if (!fileName || fileName.trim() === '') {
+      newErrors['fileName'] = 'Nome file obbligatorio';
+    } else if (!fileName.endsWith('.conf')) {
+      newErrors['fileName'] = 'Il nome deve terminare con .conf';
+    }
 
     // Valida scenario_name
     if (!config.scenario_name || config.scenario_name.trim() === '') {
@@ -130,11 +150,10 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
       newErrors['peering_lan.6'] = true;
     }
 
-    // Valida route_servers (almeno uno deve esserci)
+    // Valida route_servers
     if (Object.keys(config.route_servers).length === 0) {
       newErrors['route_servers'] = 'Devi aggiungere almeno un Route Server';
     } else {
-      // Valida ogni route server
       Object.entries(config.route_servers).forEach(([rsKey, rsData]) => {
         if (!rsData.name || rsData.name.trim() === '') {
           newErrors[`route_servers.${rsKey}.name`] = true;
@@ -159,13 +178,15 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       setShowValidationError(true);
-      // Scroll to top per mostrare l'alert
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
     setShowValidationError(false);
-    onSave(JSON.stringify(config, null, 4));
+    onSave({
+      name: fileName,
+      content: JSON.stringify(config, null, 4)
+    });
   };
 
   const hasError = (path) => errors.hasOwnProperty(path);
@@ -178,6 +199,38 @@ const ConfigForm = ({ initialData, onSave, onCancel, isEditing = false }) => {
           <p>Compila tutti i campi evidenziati in rosso prima di salvare.</p>
         </Alert>
       )}
+
+      {/* Campo Nome File */}
+      <Card className="mb-3" style={{ borderColor: hasError('fileName') ? 'hsl(0, 100%, 40%)' : '' }}>
+        <Card.Header><strong>Nome File *</strong></Card.Header>
+        <Card.Body>
+          <Form.Group>
+            <Form.Label>Nome del file di configurazione</Form.Label>
+            <Form.Control
+              type="text"
+              value={fileName}
+              onChange={handleFileNameChange}
+              placeholder="Esempio: ixp.conf, namex.conf, rome_ixp.conf"
+              disabled={isEditing}
+              isInvalid={hasError('fileName')}
+              style={hasError('fileName') ? {
+                borderColor: 'hsl(0, 100%, 40%)',
+                borderWidth: '2px'
+              } : {}}
+            />
+            {hasError('fileName') && (
+              <Form.Text className="text-danger">
+                {errors['fileName']}
+              </Form.Text>
+            )}
+            <Form.Text className="text-muted">
+              {isEditing 
+                ? 'Il nome del file non può essere modificato' 
+                : 'Deve terminare con .conf (es: ixp.conf)'}
+            </Form.Text>
+          </Form.Group>
+        </Card.Body>
+      </Card>
 
       {/* Sezione Basic Info */}
       <Card className="mb-3">
