@@ -7,12 +7,13 @@ const AppNavbar = () => {
 
   return (
     <Navbar expand="lg" className="mb-4" style={{ 
-      background: 'hsl(200, 10%, 20%)',
-      borderBottom: '1px solid hsl(200, 100%, 40%)'
+      background: '#ffffff',
+      borderBottom: '1px solid #e0e0e0',
+      boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
     }}>
       <Container>
         <Navbar.Brand as={Link} to="/" style={{ 
-          color: 'hsl(200, 100%, 70%)',
+          color: '#1565c0',
           fontWeight: 700,
           fontSize: '1.5rem'
         }}>
@@ -25,12 +26,10 @@ const AppNavbar = () => {
               as={Link} 
               to="/" 
               style={{
-                color: location.pathname === '/' 
-                  ? 'hsl(200, 100%, 70%)' 
-                  : 'hsl(200, 100%, 90%)',
+                color: location.pathname === '/' ? '#1565c0' : '#666',
                 fontWeight: location.pathname === '/' ? 600 : 400,
                 borderBottom: location.pathname === '/' 
-                  ? '2px solid hsl(200, 100%, 50%)' 
+                  ? '2px solid #1565c0' 
                   : 'none',
                 paddingBottom: '0.5rem'
               }}
@@ -41,12 +40,10 @@ const AppNavbar = () => {
               as={Link} 
               to="/settings" 
               style={{
-                color: location.pathname === '/settings' 
-                  ? 'hsl(200, 100%, 70%)' 
-                  : 'hsl(200, 100%, 90%)',
+                color: location.pathname === '/settings' ? '#1565c0' : '#666',
                 fontWeight: location.pathname === '/settings' ? 600 : 400,
                 borderBottom: location.pathname === '/settings' 
-                  ? '2px solid hsl(200, 100%, 50%)' 
+                  ? '2px solid #1565c0' 
                   : 'none',
                 paddingBottom: '0.5rem',
                 marginLeft: '1rem'

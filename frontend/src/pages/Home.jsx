@@ -10,7 +10,6 @@ const Home = () => {
     setMessage('Avvio del Digital Twin in corso...');
     
     // TODO: Chiamata API backend per avviare il lab
-    // Simulazione per ora
     setTimeout(() => {
       setLabStatus('running');
       setMessage('Digital Twin avviato con successo!');
@@ -22,7 +21,6 @@ const Home = () => {
     setMessage('Arresto del Digital Twin in corso...');
     
     // TODO: Chiamata API backend per fermare il lab
-    // Simulazione per ora
     setTimeout(() => {
       setLabStatus('stopped');
       setMessage('Digital Twin arrestato.');
@@ -43,15 +41,6 @@ const Home = () => {
 
   return (
     <Container className="py-5">
-      <div className="text-center mb-5">
-        <h1 style={{ color: 'hsl(200, 100%, 70%)', fontSize: '3rem', fontWeight: 700 }}>
-          IXP Digital Twin Control
-        </h1>
-        <p style={{ color: 'hsl(200, 100%, 90%)', fontSize: '1.2rem' }}>
-          Gestisci il laboratorio virtuale IXP
-        </p>
-      </div>
-
       {message && (
         <Alert 
           variant={labStatus === 'running' ? 'success' : labStatus === 'stopped' ? 'info' : 'warning'}
@@ -64,17 +53,18 @@ const Home = () => {
       )}
 
       <Card style={{ 
-        background: 'hsl(200, 10%, 20%)',
-        border: '1px solid hsl(200, 100%, 40%)',
+        background: '#ffffff',
+        border: '1px solid #e0e0e0',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
         maxWidth: '600px',
         margin: '0 auto'
       }}>
         <Card.Header className="text-center" style={{
-          background: 'hsl(200, 10%, 15%)',
-          borderBottom: '1px solid hsl(200, 100%, 40%)',
+          background: '#ffffff',
+          borderBottom: '1px solid #e0e0e0',
           padding: '1.5rem'
         }}>
-          <h3 style={{ color: 'hsl(200, 100%, 90%)', marginBottom: '1rem' }}>
+          <h3 style={{ color: '#333', marginBottom: '1rem', fontWeight: 600 }}>
             Stato del Lab
           </h3>
           {getStatusBadge()}
@@ -87,16 +77,16 @@ const Home = () => {
               margin: '0 auto 2rem',
               borderRadius: '50%',
               background: labStatus === 'running' 
-                ? 'hsl(120, 60%, 40%, 0.2)' 
+                ? '#e8f5e9' 
                 : labStatus === 'stopped'
-                ? 'hsl(0, 0%, 40%, 0.2)'
-                : 'hsl(45, 100%, 50%, 0.2)',
+                ? '#f5f5f5'
+                : '#fff3e0',
               border: `3px solid ${
                 labStatus === 'running' 
-                  ? 'hsl(120, 60%, 50%)' 
+                  ? '#4caf50' 
                   : labStatus === 'stopped'
-                  ? 'hsl(0, 0%, 50%)'
-                  : 'hsl(45, 100%, 50%)'
+                  ? '#9e9e9e'
+                  : '#ff9800'
               }`,
               display: 'flex',
               alignItems: 'center',
@@ -116,11 +106,9 @@ const Home = () => {
               onClick={handleStart}
               disabled={labStatus === 'running' || labStatus === 'starting' || labStatus === 'stopping'}
               style={{
-                background: 'hsl(120, 100%, 40%, 0.2)',
-                border: '1px solid hsl(120, 100%, 40%)',
-                color: 'hsl(120, 100%, 60%)',
                 minWidth: '140px',
-                fontWeight: 600
+                fontWeight: 600,
+                boxShadow: 'none'
               }}
             >
               {labStatus === 'starting' ? 'Avvio...' : '▶️ Start Lab'}
@@ -131,22 +119,20 @@ const Home = () => {
               onClick={handleStop}
               disabled={labStatus === 'stopped' || labStatus === 'starting' || labStatus === 'stopping'}
               style={{
-                background: 'hsl(0, 100%, 40%, 0.2)',
-                border: '1px solid hsl(0, 100%, 40%)',
-                color: 'hsl(0, 100%, 60%)',
                 minWidth: '140px',
-                fontWeight: 600
+                fontWeight: 600,
+                boxShadow: 'none'
               }}
             >
               {labStatus === 'stopping' ? 'Arresto...' : '⏹️ Stop Lab'}
             </Button>
           </div>
 
-          <div className="mt-4 pt-4" style={{ borderTop: '1px solid hsl(200, 20%, 30%)' }}>
-            <p style={{ color: 'hsl(200, 50%, 60%)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+          <div className="mt-4 pt-4" style={{ borderTop: '1px solid #e0e0e0' }}>
+            <p style={{ color: '#999', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
               <strong>Info:</strong>
             </p>
-            <p style={{ color: 'hsl(200, 100%, 90%)', fontSize: '0.9rem' }}>
+            <p style={{ color: '#666', fontSize: '0.9rem' }}>
               {labStatus === 'stopped' && 'Il laboratorio è pronto per essere avviato.'}
               {labStatus === 'starting' && 'Inizializzazione dei container e configurazione rete...'}
               {labStatus === 'running' && 'Il laboratorio è operativo. Tutti i servizi sono attivi.'}
@@ -157,8 +143,8 @@ const Home = () => {
       </Card>
 
       <div className="text-center mt-5">
-        <p style={{ color: 'hsl(200, 50%, 60%)' }}>
-          Configura i file di laboratorio nella sezione <strong>Settings</strong>
+        <p style={{ color: '#999' }}>
+          Configura i file di laboratorio nella sezione <strong style={{ color: '#1565c0' }}>Settings</strong>
         </p>
       </div>
     </Container>
