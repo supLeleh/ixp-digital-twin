@@ -17,7 +17,7 @@ from utils.server_context import ServerContext
 from utils.lab_utils import get_running_machines_names as get_running_machines_names_from_lab, filter_machines_info, \
     execute_command_on_machine
 
-router = APIRouter(prefix="/namex/info", tags=["Namex Info"])
+router = APIRouter(prefix="/ixp/info", tags=["IXP Info"])
 
 
 @router.get("/context")

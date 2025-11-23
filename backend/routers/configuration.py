@@ -9,7 +9,7 @@ from model.file import ConfigFileModel
 from utils.ixpconf_util import exists_file_in_ixpconfigs, create_file_in_ixpconfigs, get_ribs_content_from_ixpconf_name, get_rib_names_from_ixpconf_name
 from utils.server_context import ServerContext
 
-router = APIRouter(prefix="/namex/file", tags=["Namex Lab Configuration"])
+router = APIRouter(prefix="/ixp/file", tags=["IXP Lab Configuration"])
 
 
 @router.post("/running_ixpconf", status_code=status.HTTP_202_ACCEPTED)

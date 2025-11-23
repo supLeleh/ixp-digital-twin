@@ -25,7 +25,7 @@ def startup():
     ServerContext.set_ixpconf_filename(None)  # even if lab is found, we don't know if we have the related ixp.conf,
     # will have to be set via specific endpoint
 
-    logging.info("Namex API Started")
+    logging.info("IXP API Started")
     if ServerContext.get_is_lab_discovered():
         logging.info("Lab was discovered!")
     logging.info(f"Context:\n"
