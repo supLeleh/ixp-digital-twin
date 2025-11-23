@@ -1,30 +1,103 @@
-import React, { useState } from 'react';
-import { Container, Card, Button, Alert, Badge } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Card, Button, Alert, Badge, Form } from 'react-bootstrap';
+
+const API_BASE = 'http://localhost:8000/ixp'; // Backend FastAPI url
+const CONFIGS_API = 'http://localhost:5000/configs'; // Backend Express configs file list, adatta se usi altro
 
 const Home = () => {
-  const [labStatus, setLabStatus] = useState('stopped'); // 'stopped', 'starting', 'running', 'stopping'
+  const [labStatus, setLabStatus] = useState('stopped');
   const [message, setMessage] = useState('');
+  const [confFiles, setConfFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState('ixp.conf');
 
+  // Carica lista file .conf disponibili (dal backend)!
+  const fetchConfigFiles = async () => {
+    try {
+      const res = await fetch(CONFIGS_API);
+      if (!res.ok) return;
+      const data = await res.json();
+      // data è array di oggetti { name, content, type }
+      const confNames = data.filter(f => f.name.endsWith('.conf')).map(f => f.name);
+      setConfFiles(confNames);
+      if(confNames.length > 0) setSelectedFile(confNames[0]);
+    } catch (e) {
+      console.error('Errore caricando file config:', e);
+    }
+  };
+
+  useEffect(() => {
+    fetchConfigFiles();
+    fetchLabStatus();
+    const interval = setInterval(fetchLabStatus, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Funzione per recuperare stato lab (come prima)
+  const fetchLabStatus = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/running`);
+      if (!res.ok) {
+        setLabStatus('stopped');
+        return;
+      }
+      const data = await res.json();
+      if(data.info && data.info.discovered) {
+        setLabStatus('running');
+        setMessage(`Lab attivo. Hash: ${data.info.hash}`);
+      } else {
+        setLabStatus('stopped');
+      }
+    } catch {
+      setLabStatus('stopped');
+    }
+  };
+
+  // Gestori aggiornamento stato lab
   const handleStart = async () => {
-    setLabStatus('starting');
-    setMessage('Avvio del Digital Twin in corso...');
-    
-    // TODO: Chiamata API backend per avviare il lab
-    setTimeout(() => {
+    try {
+      setLabStatus('starting');
+      setMessage(`Avvio del Digital Twin con file ${selectedFile} in corso...`);
+
+      const res = await fetch(`${API_BASE}/start`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filename: selectedFile }),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || 'Errore nell\'avvio del lab');
+      }
+
+      const data = await res.json();
       setLabStatus('running');
-      setMessage('Digital Twin avviato con successo!');
-    }, 2000);
+      setMessage(`Digital Twin avviato! Hash: ${data.lab_hash || data.lab_hash}`);
+    } catch (error) {
+      setLabStatus('stopped');
+      setMessage(`Errore durante l'avvio: ${error.message}`);
+    }
   };
 
   const handleStop = async () => {
-    setLabStatus('stopping');
-    setMessage('Arresto del Digital Twin in corso...');
-    
-    // TODO: Chiamata API backend per fermare il lab
-    setTimeout(() => {
+    try {
+      setLabStatus('stopping');
+      setMessage('Arresto del Digital Twin in corso...');
+
+      const res = await fetch(`${API_BASE}/wipe`, {
+        method: 'POST',
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || 'Errore nell\'arresto del lab');
+      }
+
       setLabStatus('stopped');
       setMessage('Digital Twin arrestato.');
-    }, 2000);
+    } catch (error) {
+      setLabStatus('running');
+      setMessage(`Errore durante l'arresto: ${error.message}`);
+    }
   };
 
   const getStatusBadge = () => {
@@ -51,6 +124,20 @@ const Home = () => {
           {message}
         </Alert>
       )}
+
+      {/* Selettore file .conf */}
+      <Form.Group className="mb-4" style={{ maxWidth: 300, margin: '0 auto' }}>
+        <Form.Label>Seleziona file di configurazione IXP (.conf):</Form.Label>
+        <Form.Select 
+          value={selectedFile} 
+          onChange={e => setSelectedFile(e.target.value)}
+          disabled={labStatus === 'running' || labStatus === 'starting' || labStatus === 'stopping'}
+        >
+          {confFiles.map((file) => (
+            <option key={file} value={file}>{file}</option>
+          ))}
+        </Form.Select>
+      </Form.Group>
 
       <Card style={{ 
         background: '#ffffff',
