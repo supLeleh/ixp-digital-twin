@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Form, ListGroup, Modal, Alert, Tabs, Tab, Badge } from 'react-bootstrap';
+import { Button, Form, ListGroup, Modal, Alert, Tabs, Tab, Badge, Container, Card } from 'react-bootstrap';
 import ConfigForm from './ConfigForm';
 
 const FileManager = () => {
@@ -12,10 +12,8 @@ const FileManager = () => {
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('configs');
 
-  // Ref per input file
   const fileInputRef = useRef(null);
 
-  // Template IXP Config
   const IXP_CONFIG_TEMPLATE = {
     scenario_name: "namex_ixp",
     host_interface: null,
@@ -46,16 +44,14 @@ const FileManager = () => {
     }
   };
 
-  // ... (mantieni tutte le funzioni fetchConfigs, createConfig, etc.)
-
   const fetchConfigs = async () => {
     try {
       const res = await fetch('http://localhost:5000/configs');
-      if (!res.ok) throw new Error('Errore nel caricamento dei config');
+      if (!res.ok) throw new Error('Error loading configs');
       const data = await res.json();
       setConfigs(data);
     } catch (error) {
-      setError('Impossibile caricare i config');
+      setError('Unable to load configs');
       console.error(error);
     }
   };
@@ -74,7 +70,7 @@ const FileManager = () => {
       await fetchConfigs();
       setError('');
     } catch (error) {
-      setError(error.message || 'Errore nella creazione del config');
+      setError(error.message || 'Error creating config');
     }
   };
 
@@ -92,7 +88,7 @@ const FileManager = () => {
       await fetchConfigs();
       setError('');
     } catch (error) {
-      setError(error.message || 'Errore nell\'aggiornamento del config');
+      setError(error.message || 'Error updating config');
     }
   };
 
@@ -108,18 +104,18 @@ const FileManager = () => {
       await fetchConfigs();
       setError('');
     } catch (error) {
-      setError(error.message || 'Errore nell\'eliminazione del config');
+      setError(error.message || 'Error deleting config');
     }
   };
 
   const fetchResources = async () => {
     try {
       const res = await fetch('http://localhost:5000/resources');
-      if (!res.ok) throw new Error('Errore nel caricamento dei resources');
+      if (!res.ok) throw new Error('Error loading resources');
       const data = await res.json();
       setResources(data);
     } catch (error) {
-      setError('Impossibile caricare i resources');
+      setError('Unable to load resources');
       console.error(error);
     }
   };
@@ -138,7 +134,7 @@ const FileManager = () => {
       await fetchResources();
       setError('');
     } catch (error) {
-      setError(error.message || 'Errore nella creazione del resource');
+      setError(error.message || 'Error creating resource');
     }
   };
 
@@ -156,7 +152,7 @@ const FileManager = () => {
       await fetchResources();
       setError('');
     } catch (error) {
-      setError(error.message || 'Errore nell\'aggiornamento del resource');
+      setError(error.message || 'Error updating resource');
     }
   };
 
@@ -172,7 +168,7 @@ const FileManager = () => {
       await fetchResources();
       setError('');
     } catch (error) {
-      setError(error.message || 'Errore nell\'eliminazione del resource');
+      setError(error.message || 'Error deleting resource');
     }
   };
 
@@ -181,7 +177,6 @@ const FileManager = () => {
     fetchResources();
   }, []);
 
-  // Nuova funzione per gestire upload file
   const handleFileUpload = (event, type) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -192,32 +187,28 @@ const FileManager = () => {
       const content = e.target.result;
       const fileName = file.name;
 
-      // Validazione per tipo config
       if (type === 'config') {
         if (!fileName.endsWith('.conf')) {
-          setError('I file config devono avere estensione .conf');
+          setError('Config files must have .conf extension');
           return;
         }
 
-        // Verifica che sia un JSON valido
         try {
           JSON.parse(content);
         } catch (err) {
-          setError('Il file config deve contenere JSON valido');
+          setError('Config file must contain valid JSON');
           return;
         }
       } else {
-        // Validazione per resources
         const validExtensions = ['.json', '.dump', '.conf'];
         const hasValidExt = validExtensions.some(ext => fileName.endsWith(ext));
 
         if (!hasValidExt) {
-          setError('I file resource devono avere estensione .json, .dump o .conf');
+          setError('Resource files must have .json, .dump or .conf extension');
           return;
         }
       }
 
-      // Imposta il file caricato
       setCurrentFile({ name: fileName, content });
       setFileType(type);
       setIsEditing(false);
@@ -226,12 +217,10 @@ const FileManager = () => {
     };
 
     reader.onerror = () => {
-      setError('Errore nella lettura del file');
+      setError('Error reading file');
     };
 
     reader.readAsText(file);
-
-    // Reset input per permettere di caricare lo stesso file più volte
     event.target.value = '';
   };
 
@@ -250,7 +239,7 @@ const FileManager = () => {
           name: 'ixp.conf',
           content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 4)
         }
-        : { name: 'nuovo-resource.json', content: '' };
+        : { name: 'new-resource.json', content: '' };
       setCurrentFile(template);
       setIsEditing(false);
     }
@@ -270,7 +259,7 @@ const FileManager = () => {
 
   const handleSave = async () => {
     if (!currentFile.name.trim()) {
-      setError('Il nome del file è obbligatorio');
+      setError('File name is required');
       return;
     }
 
@@ -294,7 +283,7 @@ const FileManager = () => {
   };
 
   const handleDelete = (fileName, type) => {
-    if (window.confirm(`Sei sicuro di voler eliminare "${fileName}"?`)) {
+    if (window.confirm(`Are you sure you want to delete "${fileName}"?`)) {
       if (type === 'config') {
         deleteConfig(fileName);
       } else {
@@ -316,31 +305,34 @@ const FileManager = () => {
   const renderFileList = (files, type) => (
     <ListGroup className="mt-3">
       {files.length === 0 ? (
-        <ListGroup.Item className="text-center" style={{ color: 'hsl(200, 50%, 60%)' }}>
-          Nessun file presente
+        <ListGroup.Item className="text-center" style={{ color: '#6c757d', background: '#f8f9fa' }}>
+          No files available
         </ListGroup.Item>
       ) : (
         files.map((file, idx) => (
-          <ListGroup.Item key={idx}>
+          <ListGroup.Item key={idx} style={{ border: '1px solid #dee2e6', borderRadius: '6px', marginBottom: '0.5rem' }}>
             <div className="d-flex justify-content-between align-items-center">
               <div>
-                <strong>{file.name}</strong>
+                <strong style={{ color: '#212529' }}>{file.name}</strong>
                 <span className="ms-2">{getFileExtensionBadge(file.name)}</span>
               </div>
               <div>
                 <Button
                   size="sm"
+                  variant="primary"
                   onClick={() => handleShowModal(file, type)}
                   className="mx-1"
+                  style={{ background: '#007bff', border: 'none' }}
                 >
-                  Modifica
+                  Edit
                 </Button>
                 <Button
                   size="sm"
                   variant="danger"
                   onClick={() => handleDelete(file.name, type)}
+                  style={{ background: '#dc3545', border: 'none' }}
                 >
-                  Elimina
+                  Delete
                 </Button>
               </div>
             </div>
@@ -351,65 +343,98 @@ const FileManager = () => {
   );
 
   return (
-    <>
-      <h1>IXP File Manager</h1>
+    <Container className="py-5" style={{ maxWidth: '1200px' }}>
+      <Card style={{ 
+        background: '#ffffff',
+        border: '1px solid #dee2e6',
+        borderRadius: '8px'
+      }}>
+        <Card.Header style={{
+          background: '#f8f9fa',
+          borderBottom: '1px solid #dee2e6',
+          padding: '1.5rem'
+        }}>
+          <h3 style={{ marginBottom: 0, fontWeight: 600, color: '#212529' }}>
+            ⚙️ IXP File Manager
+          </h3>
+        </Card.Header>
+        <Card.Body className="p-4">
+          {error && (
+            <Alert variant="danger" dismissible onClose={() => setError('')}>
+              {error}
+            </Alert>
+          )}
 
-      {error && <Alert variant="danger" dismissible onClose={() => setError('')}>{error}</Alert>}
+          <input
+            ref={fileInputRef}
+            type="file"
+            style={{ display: 'none' }}
+            accept={fileType === 'config' ? '.conf' : '.json,.dump,.conf'}
+            onChange={(e) => handleFileUpload(e, fileType)}
+          />
 
-      {/* Input file nascosto */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        style={{ display: 'none' }}
-        accept={fileType === 'config' ? '.conf' : '.json,.dump,.conf'}
-        onChange={(e) => handleFileUpload(e, fileType)}
-      />
+          <Tabs
+            activeKey={activeTab}
+            onSelect={(k) => setActiveTab(k)}
+            className="mb-3"
+          >
+            <Tab eventKey="configs" title={`IXP Configurations (${configs.length})`}>
+              <div className="d-flex gap-2 mb-3">
+                <Button 
+                  variant="primary" 
+                  onClick={() => handleShowModal(null, 'config')}
+                  style={{ background: '#007bff', border: 'none', borderRadius: '6px' }}
+                >
+                  New Config
+                </Button>
+                <Button 
+                  variant="success" 
+                  onClick={() => handleUploadClick('config')}
+                  style={{ background: '#28a745', border: 'none', borderRadius: '6px' }}
+                >
+                  📁 Upload from File
+                </Button>
+              </div>
+              {renderFileList(configs, 'config')}
+            </Tab>
 
-      <Tabs
-        activeKey={activeTab}
-        onSelect={(k) => setActiveTab(k)}
-        className="mb-3"
-      >
-        <Tab eventKey="configs" title={`IXP Configurations (${configs.length})`}>
-          <div className="d-flex gap-2 mb-3">
-            <Button variant="primary" onClick={() => handleShowModal(null, 'config')}>
-              Nuovo Config
-            </Button>
-            <Button variant="success" onClick={() => handleUploadClick('config')}>
-              📁 Carica da File
-            </Button>
-          </div>
-          {renderFileList(configs, 'config')}
-        </Tab>
-
-        <Tab eventKey="resources" title={`Resources (${resources.length})`}>
-          <div className="d-flex gap-2 mb-3">
-            <Button variant="primary" onClick={() => handleShowModal(null, 'resource')}>
-              Nuovo Resource
-            </Button>
-            <Button variant="success" onClick={() => handleUploadClick('resource')}>
-              📁 Carica da File
-            </Button>
-          </div>
-          {renderFileList(resources, 'resource')}
-        </Tab>
-      </Tabs>
+            <Tab eventKey="resources" title={`Resources (${resources.length})`}>
+              <div className="d-flex gap-2 mb-3">
+                <Button 
+                  variant="primary" 
+                  onClick={() => handleShowModal(null, 'resource')}
+                  style={{ background: '#007bff', border: 'none', borderRadius: '6px' }}
+                >
+                  New Resource
+                </Button>
+                <Button 
+                  variant="success" 
+                  onClick={() => handleUploadClick('resource')}
+                  style={{ background: '#28a745', border: 'none', borderRadius: '6px' }}
+                >
+                  📁 Upload from File
+                </Button>
+              </div>
+              {renderFileList(resources, 'resource')}
+            </Tab>
+          </Tabs>
+        </Card.Body>
+      </Card>
 
       <Modal show={showModal} onHide={handleCloseModal} size="xl" scrollable>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {isEditing ? 'Modifica' : 'Crea'} {fileType === 'config' ? 'Config IXP' : 'Resource'}
+        <Modal.Header closeButton style={{ background: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
+          <Modal.Title style={{ color: '#212529', fontWeight: 600 }}>
+            {isEditing ? 'Edit' : 'Create'} {fileType === 'config' ? 'IXP Config' : 'Resource'}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ background: '#ffffff' }}>
           {fileType === 'config' ? (
             <ConfigForm
               initialData={currentFile.content}
-              initialName={currentFile.name}  // Passa il nome del file
+              initialName={currentFile.name}
               isEditing={isEditing}
-              onSave={(fileData) => {  // Ora riceve un oggetto con name e content
+              onSave={(fileData) => {
                 setCurrentFile(fileData);
-                // Salva con il nome aggiornato
                 if (isEditing) {
                   updateConfig(fileData);
                 } else {
@@ -424,20 +449,21 @@ const FileManager = () => {
           ) : (
             <Form>
               <Form.Group>
-                <Form.Label>Nome file</Form.Label>
+                <Form.Label style={{ fontWeight: 600, color: '#495057' }}>File name</Form.Label>
                 <Form.Control
                   name="name"
                   value={currentFile.name}
                   onChange={handleChange}
                   disabled={isEditing}
-                  placeholder="nome.json / nome.dump / nome.conf"
+                  placeholder="filename.json / filename.dump / filename.conf"
+                  style={{ borderRadius: '6px', border: '1px solid #ced4da' }}
                 />
                 <Form.Text className="text-muted">
-                  Estensioni valide: .json, .dump, .conf
+                  Valid extensions: .json, .dump, .conf
                 </Form.Text>
               </Form.Group>
               <Form.Group className="mt-3">
-                <Form.Label>Contenuto</Form.Label>
+                <Form.Label style={{ fontWeight: 600, color: '#495057' }}>Content</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={12}
@@ -447,7 +473,9 @@ const FileManager = () => {
                   style={{
                     fontFamily: 'monospace',
                     fontSize: '13px',
-                    lineHeight: '1.5'
+                    lineHeight: '1.5',
+                    borderRadius: '6px',
+                    border: '1px solid #ced4da'
                   }}
                 />
               </Form.Group>
@@ -455,17 +483,25 @@ const FileManager = () => {
           )}
         </Modal.Body>
         {fileType !== 'config' && (
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              Annulla
+          <Modal.Footer style={{ background: '#f8f9fa', borderTop: '1px solid #dee2e6' }}>
+            <Button 
+              variant="secondary" 
+              onClick={handleCloseModal}
+              style={{ background: '#6c757d', border: 'none', borderRadius: '6px' }}
+            >
+              Cancel
             </Button>
-            <Button variant="primary" onClick={handleSave}>
-              {isEditing ? 'Salva modifiche' : 'Crea'}
+            <Button 
+              variant="primary" 
+              onClick={handleSave}
+              style={{ background: '#007bff', border: 'none', borderRadius: '6px' }}
+            >
+              {isEditing ? 'Save changes' : 'Create'}
             </Button>
           </Modal.Footer>
         )}
       </Modal>
-    </>
+    </Container>
   );
 };
 
