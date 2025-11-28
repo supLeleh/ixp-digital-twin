@@ -210,7 +210,7 @@ const FileManager = () => {
 
   const fetchConfigs = async () => {
     try {
-      const res = await fetch('http://localhost:5000/configs');
+      const res = await fetch('http://localhost:8000/configs');
       if (!res.ok) throw new Error('Error loading configs');
       const data = await res.json();
       setConfigs(data);
@@ -229,7 +229,7 @@ const FileManager = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/configs', {
+      const response = await fetch('http://localhost:8000/configs', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(file),
@@ -255,7 +255,7 @@ const FileManager = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/configs/${encodeURIComponent(file.name)}`, {
+      const response = await fetch(`http://localhost:8000/configs/${encodeURIComponent(file.name)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: file.content }),
@@ -274,7 +274,7 @@ const FileManager = () => {
 
   const deleteConfig = async (fileName) => {
     try {
-      const response = await fetch(`http://localhost:5000/configs/${encodeURIComponent(fileName)}`, {
+      const response = await fetch(`http://localhost:8000/configs/${encodeURIComponent(fileName)}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -290,7 +290,7 @@ const FileManager = () => {
 
   const fetchResources = async () => {
     try {
-      const res = await fetch('http://localhost:5000/resources');
+      const res = await fetch('http://localhost:8000/resources');
       if (!res.ok) throw new Error('Error loading resources');
       const data = await res.json();
       setResources(data);
@@ -302,7 +302,7 @@ const FileManager = () => {
 
   const createResource = async (file) => {
     try {
-      const response = await fetch('http://localhost:5000/resources', {
+      const response = await fetch('http://localhost:8000/resources', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(file),
@@ -321,7 +321,7 @@ const FileManager = () => {
 
   const updateResource = async (file) => {
     try {
-      const response = await fetch(`http://localhost:5000/resources/${encodeURIComponent(file.name)}`, {
+      const response = await fetch(`http://localhost:8000/resources/${encodeURIComponent(file.name)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: file.content }),
@@ -340,7 +340,7 @@ const FileManager = () => {
 
   const deleteResource = async (fileName) => {
     try {
-      const response = await fetch(`http://localhost:5000/resources/${encodeURIComponent(fileName)}`, {
+      const response = await fetch(`http://localhost:8000/resources/${encodeURIComponent(fileName)}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

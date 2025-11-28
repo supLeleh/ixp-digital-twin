@@ -1,22 +1,28 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
-from routers import execution, configuration, infos, validate
+from routers import execution, configuration, infos, validate, files 
 from log import set_logging
+
 
 def app_startup():
     set_logging()
     execution.startup()
 
-app = FastAPI()
+
+app = FastAPI(title="IXP Digital Twin API", version="1.0.0")
+
 
 app.running_instance_hash = []
 app.include_router(execution.router)
 app.include_router(configuration.router)
 app.include_router(infos.router)
 app.include_router(validate.router)
+app.include_router(files.router)
+
 
 app.add_event_handler('startup', app_startup)
+
 
 origins = [
     "http://localhost",
@@ -25,6 +31,7 @@ origins = [
     "http://localhost:3000",
     "*"
 ]
+
 # Allow CORS requests from front-end to back-end
 app.add_middleware(
     CORSMiddleware,
@@ -38,9 +45,12 @@ app.add_middleware(
 @app.get("/", status_code=status.HTTP_200_OK)
 async def index_route():
     return {
-        "message": "Hello index"
+        "message": "IXP Digital Twin API",
+        "version": "1.0.0",
+        "endpoints": {
+            "ixp": "/ixp",
+            "configs": "/configs",
+            "resources": "/resources",
+            "info": "/ixp/info"
+        }
     }
-
-
-
-

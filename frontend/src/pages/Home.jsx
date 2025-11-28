@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container, Card, Button, Alert, Badge, Form, Spinner, Row, Col, ProgressBar, Modal, Table } from 'react-bootstrap';
 
 const API_BASE = 'http://localhost:8000/ixp';
-const CONFIGS_API = 'http://localhost:5000/configs';
+const CONFIGS_API = 'http://localhost:8000/configs';
 
 const Home = () => {
     const [labStatus, setLabStatus] = useState('stopped');

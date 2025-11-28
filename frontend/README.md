@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# IXP Digital Twin - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern React-based web interface for managing and monitoring IXP (Internet Exchange Point) network simulations.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Lab Control Dashboard**: Start/stop IXP labs with visual status indicators
+- **Device Monitoring**: Real-time CPU, memory, and network statistics
+- **Command Execution**: Run commands on virtual devices with live output
+- **RIB Diff Analysis**: Compare BGP routing tables with visual reports
+- **File Management**: Upload and manage configuration files
+- **Responsive Design**: Modern UI with Bootstrap components
+- **Auto-refresh**: Optional polling for live updates
 
-### `npm start`
+## 📋 Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js 16+ and npm
+- Backend API running on port 8000
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Installation
 
-### `npm test`
+1. **Clone the repository**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+git clone <repository-url>
+cd frontend
 
-### `npm run build`
+2. **Install dependencies**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Configure API endpoint** (if needed)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Edit `src/components/Home.jsx`:
+const API_BASE = 'http://localhost:8000/ixp';
+const CONFIGS_API = 'http://localhost:8000/configs';
 
-### `npm run eject`
+## 🚀 Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Development Mode
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Opens browser at http://localhost:3000
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Production Build
 
-## Learn More
+Creates optimized build in `build/` directory
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Serve Production Build
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+npm install -g serve
+serve -s build -p 3000
 
-### Code Splitting
+## 🎨 Key Components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Home Dashboard
+- **Lab Status**: Visual indicator (stopped/starting/running/stopping)
+- **Configuration Selector**: Choose IXP config file
+- **Action Buttons**: Start/Stop lab, Run Command, RIB Diff
+- **Device Cards**: Live stats for each network device
 
-### Analyzing the Bundle Size
+### Run Command Modal
+- Device selector dropdown
+- Command input textarea
+- Live output display
+- 60-second timeout protection
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### RIB Diff Modal
+- Route server selection
+- IPv4/IPv6 toggle
+- Comparison statistics table
+- Show/Hide routes functionality
+- Download routes as .txt files
 
-### Making a Progressive Web App
+## 🔧 Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### API Endpoints
+Update in component files if backend URL changes:
 
-### Advanced Configuration
+const API_BASE = 'http://your-backend:8000/ixp';
+const CONFIGS_API = 'http://your-backend:8000/configs';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Polling Intervals
 
-### Deployment
+Adjust in `Home.jsx`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+// Lab status polling (default: 10 seconds)
+pollingRef.current = setInterval(fetchLabStatus, 10000);
 
-### `npm run build` fails to minify
+// Device stats polling (default: 10 seconds)
+statsPollingRef.current = setInterval(fetchDevices, 10000);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📦 Dependencies
+
+- React 18+
+- React Bootstrap
+- React Router DOM
+- Bootstrap 5
