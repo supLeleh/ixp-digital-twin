@@ -418,25 +418,65 @@ const FileManager = () => {
     fileInputRef.current?.click();
   };
 
-  const handleShowModal = (file = null, type = 'config') => {
-    if (file) {
-      setCurrentFile({ ...file });
-      setIsEditing(true);
-    } else {
-      const template = type === 'config'
-        ? {
-          name: '',  // Nome vuoto per forzare l'utente a specificarlo
-          content: ''  // Contenuto vuoto - il form gestirà i valori di default
+const handleShowModal = async (file = null, type = 'config') => {
+  if (file) {
+    try {
+      const endpoint = type === 'config' 
+        ? `http://localhost:8000/configs/${encodeURIComponent(file.name)}`
+        : `http://localhost:8000/resources/${encodeURIComponent(file.name)}`;
+      
+      console.log("🔍 Loading file:", file.name, "from", endpoint);
+      
+      const response = await fetch(endpoint);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      let content = data.content || data.message || data.file_content || '';
+      
+      console.log("✅ File loaded, raw content:", content);
+      
+      // ✅ Se è un config file, assicurati che sia una stringa JSON valida
+      if (type === 'config' && content) {
+        try {
+          // Prova a parsare per verificare che sia JSON valido
+          const parsed = JSON.parse(content);
+          // Poi riconvertilo in stringa formattata
+          content = JSON.stringify(parsed, null, 2);
+          console.log("✅ JSON parsed successfully");
+        } catch (e) {
+          console.error("❌ Invalid JSON in file:", e);
+          setError(`File "${file.name}" contains invalid JSON: ${e.message}`);
+          return;
         }
-        : { name: 'new-resource.json', content: '' };
-      setCurrentFile(template);
-      setIsEditing(false);
+      }
+      
+      setCurrentFile({ 
+        name: file.name, 
+        content: content
+      });
+      setIsEditing(true);
+      
+    } catch (error) {
+      console.error("❌ Error loading file:", error);
+      setError(`Failed to load file "${file.name}": ${error.message}`);
+      return;
     }
-    setFileType(type);
-    setShowModal(true);
-    setError('');
-  };
-
+  } else {
+    // Creazione nuovo file
+    const template = type === 'config'
+      ? { name: '', content: JSON.stringify(IXP_CONFIG_TEMPLATE, null, 2) }  // ✅ Template pre-formattato
+      : { name: 'new-resource.json', content: '' };
+    setCurrentFile(template);
+    setIsEditing(false);
+  }
+  
+  setFileType(type);
+  setShowModal(true);
+  setError('');
+};
 
   const handleCloseModal = () => {
     setShowModal(false);

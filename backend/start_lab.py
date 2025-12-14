@@ -75,7 +75,7 @@ def build_lab(ixp_configs_filename: str):
         table_dump.load_from_file(dump_path)
 
     # Enable for debug - limit to 5 entries
-    table_dump.entries = dict(list(table_dump.entries.items())[0:5])
+    # table_dump.entries = dict(list(table_dump.entries.items())[0:5])
 
     # Build network scenario
     net_scenario_manager = NetworkScenarioManager()
