@@ -1,3 +1,6 @@
 [submodule "ixp-digital-twin"]
 	path = ixp-digital-twin
 	url = https://github.com/KatharaFramework/ixp-digital-twin
+[submodule "backend/digital_twin"]
+	path = backend/digital_twin
+	url = https://github.com/KatharaFramework/ixp-digital-twin
