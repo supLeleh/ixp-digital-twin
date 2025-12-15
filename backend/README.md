@@ -20,10 +20,18 @@ FastAPI-based backend for simulating and managing Internet Exchange Point (IXP) 
 
 ## 🛠️ Installation
 
-1. **Clone the repository**
+### 1. Clone the repository with submodules
+
+**Recommended method (clone with submodule):**
+
+git clone --recurse-submodules <repository-url>
+cd backend
+
+Alternative (if already cloned):
 
 git clone <repository-url>
 cd backend
+git submodule update --init --recursive
 
 2. **Create virtual environment**
 
@@ -36,6 +44,20 @@ venv\Scripts\activate # Windows
 3. **Install dependencies**
 
 pip install -r requirements.txt
+
+4. **Verify submodule**
+
+Check that the digital_twin/ directory is populated:
+
+ls digital_twin/  # Should show ixp/, bin/, etc.
+
+## 🔄 Updating the Submodule
+
+To update digital_twin to the latest version:
+
+git submodule update --remote digital_twin
+git add digital_twin
+git commit -m "Update digital_twin submodule"
 
 ## 🚀 Usage
 
