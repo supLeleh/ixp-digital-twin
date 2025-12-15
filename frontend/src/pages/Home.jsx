@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Card, Button, Alert, Badge, Form, Spinner, Row, Col, ProgressBar, Modal, Table } from 'react-bootstrap';
+import { Container, Card, Button, Alert, Badge, Form, Spinner, Row, Col, ProgressBar, Modal, Table, InputGroup } from 'react-bootstrap';
 
 const API_BASE = 'http://localhost:8000/ixp';
 const CONFIGS_API = 'http://localhost:8000/configs';
@@ -11,6 +11,12 @@ const Home = () => {
     const [selectedFile, setSelectedFile] = useState('ixp.conf');
     const [devices, setDevices] = useState([]);
     const [statsPollingEnabled, setStatsPollingEnabled] = useState(true);
+    
+    // ✅ NUOVO: Stato per intervallo polling configurabile
+    const [pollingInterval, setPollingInterval] = useState(() => {
+        const saved = localStorage.getItem('pollingInterval');
+        return saved ? parseInt(saved) : 10;
+    });
 
     // Stati per Run Command
     const [showCommandModal, setShowCommandModal] = useState(false);
@@ -34,6 +40,21 @@ const Home = () => {
 
     const pollingRef = useRef(null);
     const statsPollingRef = useRef(null);
+
+    // ✅ NUOVO: Handler per cambiare intervallo polling
+    const handlePollingIntervalChange = (value) => {
+        const numValue = parseInt(value);
+        if (isNaN(numValue) || numValue < 1) {
+            setPollingInterval(1);
+            localStorage.setItem('pollingInterval', '1');
+        } else if (numValue > 300) {
+            setPollingInterval(300);
+            localStorage.setItem('pollingInterval', '300');
+        } else {
+            setPollingInterval(numValue);
+            localStorage.setItem('pollingInterval', numValue.toString());
+        }
+    };
 
     const fetchConfigFiles = async () => {
         try {
@@ -100,6 +121,7 @@ const Home = () => {
         };
     }, []);
 
+    // ✅ MODIFICATO: useEffect che ora usa pollingInterval dinamico
     useEffect(() => {
         if (statsPollingRef.current) {
             clearInterval(statsPollingRef.current);
@@ -108,7 +130,7 @@ const Home = () => {
 
         if (labStatus === 'running' && statsPollingEnabled) {
             fetchDevices();
-            statsPollingRef.current = setInterval(fetchDevices, 10000);
+            statsPollingRef.current = setInterval(fetchDevices, pollingInterval * 1000);
         }
 
         return () => {
@@ -117,7 +139,7 @@ const Home = () => {
                 statsPollingRef.current = null;
             }
         };
-    }, [labStatus, statsPollingEnabled]);
+    }, [labStatus, statsPollingEnabled, pollingInterval]); // ✅ Aggiunto pollingInterval
 
     const handleStart = async () => {
         try {
@@ -312,7 +334,6 @@ const Home = () => {
         }
     };
 
-    // Funzione per scaricare le rotte come file di testo
     const downloadRoutes = (routes, filename) => {
         const content = routes.join('\n');
         const blob = new Blob([content], { type: 'text/plain' });
@@ -415,7 +436,6 @@ const Home = () => {
                             </tbody>
                         </Table>
 
-                        {/* Not Loaded Routes */}
                         {showNotLoadedRoutes && ribDiffResult.not_loaded_routes && ribDiffResult.not_loaded_routes.length > 0 && (
                             <Alert variant="warning" className="mt-3">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
@@ -448,7 +468,6 @@ const Home = () => {
                             </Alert>
                         )}
 
-                        {/* Extra Routes */}
                         {showExtraRoutes && ribDiffResult.extra_routes && ribDiffResult.extra_routes.length > 0 && (
                             <Alert variant="danger" className="mt-3">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
@@ -493,8 +512,6 @@ const Home = () => {
             </div>
         );
     };
-
-    // ==================== END RIB DIFF ====================
 
     const getStatusBadge = () => {
         const statusConfig = {
@@ -668,7 +685,7 @@ const Home = () => {
                                         variant="info"
                                         onClick={handleOpenRibDiffModal}
                                         disabled={getRouteServers().length === 0}
-                                        style={{   
+                                        style={{
                                             minWidth: '150px',
                                             fontWeight: 600,
                                             borderRadius: '6px',
@@ -718,21 +735,40 @@ const Home = () => {
                         <h5 style={{ marginBottom: 0, fontWeight: 600, color: '#212529' }}>
                             Lab Devices ({devices.length})
                         </h5>
-                        <Form.Check
-                            type="switch"
-                            id="stats-polling-switch"
-                            label={
-                                <span style={{ color: '#495057', fontWeight: 500 }}>
-                                    Auto-refresh (10s)
-                                    {statsPollingEnabled && (
-                                        <Spinner animation="grow" size="sm" className="ms-2" variant="primary" />
-                                    )}
-                                </span>
-                            }
-                            checked={statsPollingEnabled}
-                            onChange={(e) => setStatsPollingEnabled(e.target.checked)}
-                            style={{ fontSize: '0.95rem' }}
-                        />
+                        
+                        {/* ✅ MODIFICATO: Aggiunto input numerico per polling interval */}
+                        <div className="d-flex align-items-center gap-3">
+                            <InputGroup size="sm" style={{ maxWidth: '150px' }}>
+                                <InputGroup.Text>Refresh</InputGroup.Text>
+                                <Form.Control
+                                    type="number"
+                                    min="1"
+                                    max="300"
+                                    value={pollingInterval}
+                                    onChange={(e) => handlePollingIntervalChange(e.target.value)}
+                                    disabled={!statsPollingEnabled}
+                                    className="text-center"
+                                    style={{ fontWeight: 600 }}
+                                />
+                                <InputGroup.Text>sec</InputGroup.Text>
+                            </InputGroup>
+                            
+                            <Form.Check
+                                type="switch"
+                                id="stats-polling-switch"
+                                label={
+                                    <span style={{ color: '#495057', fontWeight: 500 }}>
+                                        Auto-refresh
+                                        {statsPollingEnabled && (
+                                            <Spinner animation="grow" size="sm" className="ms-2" variant="primary" />
+                                        )}
+                                    </span>
+                                }
+                                checked={statsPollingEnabled}
+                                onChange={(e) => setStatsPollingEnabled(e.target.checked)}
+                                style={{ fontSize: '0.95rem' }}
+                            />
+                        </div>
                     </Card.Header>
                     <Card.Body style={{ padding: 0 }}>
                         {devices.length === 0 ? (
