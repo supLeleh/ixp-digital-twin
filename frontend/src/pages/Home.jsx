@@ -12,7 +12,7 @@ const Home = () => {
     const [devices, setDevices] = useState([]);
     const [statsPollingEnabled, setStatsPollingEnabled] = useState(true);
 
-    // ✅ NUOVO: Stato per intervallo polling configurabile
+    // Stato per intervallo polling configurabile
     const [pollingInterval, setPollingInterval] = useState(() => {
         const saved = localStorage.getItem('pollingInterval');
         return saved ? parseInt(saved) : 10;
@@ -41,7 +41,7 @@ const Home = () => {
     const pollingRef = useRef(null);
     const statsPollingRef = useRef(null);
 
-    // ✅ NUOVO: Handler per cambiare intervallo polling
+    // Handler per cambiare intervallo polling
     const handlePollingIntervalChange = (value) => {
         const numValue = parseInt(value);
         if (isNaN(numValue) || numValue < 1) {
@@ -121,7 +121,6 @@ const Home = () => {
         };
     }, []);
 
-    // ✅ MODIFICATO: useEffect che ora usa pollingInterval dinamico
     useEffect(() => {
         if (statsPollingRef.current) {
             clearInterval(statsPollingRef.current);
@@ -139,7 +138,7 @@ const Home = () => {
                 statsPollingRef.current = null;
             }
         };
-    }, [labStatus, statsPollingEnabled, pollingInterval]); // ✅ Aggiunto pollingInterval
+    }, [labStatus, statsPollingEnabled, pollingInterval]);
 
     const handleStart = async () => {
         try {
@@ -185,6 +184,33 @@ const Home = () => {
             console.error('Error stopping lab:', error);
             setLabStatus('running');
             setMessage(`Error stopping lab: ${error.message}`);
+        }
+    };
+
+    const handleReloadLab = async () => {
+        try {
+            setLabStatus('reloading');
+            setMessage('Hot-reloading lab configuration...');
+
+            const res = await fetch(`${API_BASE}/reload`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename: selectedFile })
+            });
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(errorText || 'Reload failed');
+            }
+
+            const data = await res.json();
+            setLabStatus('running');
+            setMessage(`Lab configuration reloaded! Hash: ${data.message || data.lab_hash}`);
+
+        } catch (error) {
+            console.error('Reload error:', error);
+            setLabStatus('running');
+            setMessage(`Reload error: ${error.message}`);
         }
     };
 
@@ -302,23 +328,6 @@ const Home = () => {
 
         const wasPollingEnabled = statsPollingEnabled;
         setStatsPollingEnabled(false);
-
-        const handleReloadLab = async () => {
-            try {
-                const res = await fetch(`${API_BASE}/reload`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ filename: selectedFile })
-                });
-
-                if (!res.ok) throw new Error('Reload failed');
-
-                const data = await res.json();
-                setMessage(`Lab reloaded! Hash: ${data.lab_hash}`);
-            } catch (error) {
-                setMessage(`Reload error: ${error.message}`);
-            }
-        };
 
         try {
             const params = new URLSearchParams({
@@ -535,7 +544,8 @@ const Home = () => {
             stopped: { bg: 'secondary', text: 'Stopped' },
             starting: { bg: 'warning', text: 'Starting...' },
             running: { bg: 'success', text: 'Running' },
-            stopping: { bg: 'warning', text: 'Stopping...' }
+            stopping: { bg: 'warning', text: 'Stopping...' },
+            reloading: { bg: 'info', text: 'Reloading...' }
         };
         const config = statusConfig[labStatus];
         return <Badge bg={config.bg} className="fs-6">{config.text}</Badge>;
@@ -621,12 +631,16 @@ const Home = () => {
                                     ? 'linear-gradient(135deg, #28a745 0%, #20c997 100%)'
                                     : labStatus === 'stopped'
                                         ? '#f5f5f5'
-                                        : 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)',
+                                        : labStatus === 'reloading'
+                                            ? 'linear-gradient(135deg, #17a2b8 0%, #138496 100%)'
+                                            : 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)',
                                 border: `3px solid ${labStatus === 'running'
-                                    ? '#28a745'
-                                    : labStatus === 'stopped'
-                                        ? '#9e9e9e'
-                                        : '#ffc107'
+                                        ? '#28a745'
+                                        : labStatus === 'stopped'
+                                            ? '#9e9e9e'
+                                            : labStatus === 'reloading'
+                                                ? '#17a2b8'
+                                                : '#ffc107'
                                     }`,
                                 display: 'flex',
                                 alignItems: 'center',
@@ -636,12 +650,14 @@ const Home = () => {
                                     ? '0 4px 12px rgba(40, 167, 69, 0.3)'
                                     : labStatus === 'stopped'
                                         ? '0 2px 8px rgba(0,0,0,0.1)'
-                                        : '0 4px 12px rgba(255, 193, 7, 0.3)',
+                                        : labStatus === 'reloading'
+                                            ? '0 4px 12px rgba(23, 162, 184, 0.3)'
+                                            : '0 4px 12px rgba(255, 193, 7, 0.3)',
                                 transition: 'all 0.3s ease'
                             }}>
                                 {labStatus === 'running' && '▶️'}
                                 {labStatus === 'stopped' && '⏹️'}
-                                {(labStatus === 'starting' || labStatus === 'stopping') && (
+                                {(labStatus === 'starting' || labStatus === 'stopping' || labStatus === 'reloading') && (
                                     <Spinner animation="border" variant="light" />
                                 )}
                             </div>
@@ -667,7 +683,7 @@ const Home = () => {
                                     variant="danger"
                                     size="lg"
                                     onClick={handleStop}
-                                    disabled={labStatus === 'stopped'}
+                                    disabled={labStatus === 'stopped' || labStatus === 'reloading'}
                                     style={{
                                         minWidth: '140px',
                                         fontWeight: 600,
@@ -681,12 +697,12 @@ const Home = () => {
                                 </Button>
                             </div>
 
-                            {/* Action Buttons - Solo se lab è running */}
                             {labStatus === 'running' && (
                                 <div className="mt-3 d-flex gap-2 justify-content-center">
                                     <Button
                                         variant="primary"
                                         onClick={handleOpenCommandModal}
+                                        disabled={labStatus === 'reloading'}
                                         style={{
                                             minWidth: '150px',
                                             fontWeight: 600,
@@ -701,7 +717,7 @@ const Home = () => {
                                     <Button
                                         variant="info"
                                         onClick={handleOpenRibDiffModal}
-                                        disabled={getRouteServers().length === 0}
+                                        disabled={getRouteServers().length === 0 || labStatus === 'reloading'}
                                         style={{
                                             minWidth: '150px',
                                             fontWeight: 600,
@@ -713,6 +729,29 @@ const Home = () => {
                                         }}
                                     >
                                         📊 RIB Diff
+                                    </Button>
+                                    <Button
+                                        variant="warning"
+                                        onClick={handleReloadLab}
+                                        disabled={labStatus === 'reloading'}
+                                        style={{
+                                            minWidth: '150px',
+                                            fontWeight: 600,
+                                            borderRadius: '6px',
+                                            padding: '0.5rem 1rem',
+                                            background: '#ffc107',
+                                            border: 'none',
+                                            color: '#212529'
+                                        }}
+                                    >
+                                        {labStatus === 'reloading' ? (
+                                            <>
+                                                <Spinner animation="border" size="sm" className="me-2" />
+                                                Reloading...
+                                            </>
+                                        ) : (
+                                            '🔄 Reload Config'
+                                        )}
                                     </Button>
                                 </div>
                             )}
@@ -727,6 +766,7 @@ const Home = () => {
                                     {labStatus === 'starting' && 'Initializing containers and network configuration...'}
                                     {labStatus === 'running' && 'Lab is operational. All services are active.'}
                                     {labStatus === 'stopping' && 'Terminating processes and cleaning resources...'}
+                                    {labStatus === 'reloading' && '🔄 Updating configurations and restarting services...'}
                                 </p>
                             </Col>
                         </Row>
@@ -753,7 +793,6 @@ const Home = () => {
                             Lab Devices ({devices.length})
                         </h5>
 
-                        {/* ✅ MODIFICATO: Aggiunto input numerico per polling interval */}
                         <div className="d-flex align-items-center gap-3">
                             <InputGroup size="sm" style={{ maxWidth: '150px' }}>
                                 <InputGroup.Text>Refresh</InputGroup.Text>
@@ -830,20 +869,18 @@ const Home = () => {
                                                     <ProgressBar
                                                         now={device.cpu_percent}
                                                         variant={getProgressVariant(device.cpu_percent)}
-                                                        style={{ height: '8px', borderRadius: '4px' }}
+                                                        style={{ height: '8px' }}
                                                     />
                                                 </Col>
                                                 <Col md={6} className="mb-2">
                                                     <div className="d-flex justify-content-between mb-1">
                                                         <small style={{ fontWeight: 600, color: '#495057' }}>Memory</small>
-                                                        <small style={{ fontWeight: 600, color: '#212529' }}>
-                                                            {device.memory_usage_mb} / {device.memory_limit_mb} MB ({device.memory_percent}%)
-                                                        </small>
+                                                        <small style={{ fontWeight: 600, color: '#212529' }}>{device.memory_percent}%</small>
                                                     </div>
                                                     <ProgressBar
                                                         now={device.memory_percent}
                                                         variant={getProgressVariant(device.memory_percent)}
-                                                        style={{ height: '8px', borderRadius: '4px' }}
+                                                        style={{ height: '8px' }}
                                                     />
                                                 </Col>
                                             </Row>
@@ -856,104 +893,68 @@ const Home = () => {
                 </Card>
             )}
 
-            <div className="text-center mt-5">
-                <p style={{ color: '#6c757d', fontSize: '0.9rem' }}>
-                    ⚙️ Configure lab files in the <strong style={{ color: '#007bff' }}>Settings</strong> section
-                </p>
-            </div>
-
             {/* Run Command Modal */}
             <Modal show={showCommandModal} onHide={handleCloseCommandModal} size="lg">
-                <Modal.Header closeButton style={{ background: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
-                    <Modal.Title style={{ color: '#212529', fontWeight: 600 }}>
-                        ⚡ Run Command on Device
-                    </Modal.Title>
+                <Modal.Header closeButton>
+                    <Modal.Title>⚡ Execute Command</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{ background: '#ffffff' }}>
-                    {commandError && (
-                        <Alert variant="danger" onClose={() => setCommandError('')} dismissible>
-                            {commandError}
-                        </Alert>
+                <Modal.Body>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Select Device</Form.Label>
+                        <Form.Select
+                            value={selectedDevice}
+                            onChange={(e) => setSelectedDevice(e.target.value)}
+                        >
+                            {devices.map((device) => (
+                                <option key={device.name} value={device.name}>
+                                    {device.name}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Command</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter command (e.g., ip addr, vtysh -c 'show ip bgp summary')"
+                            value={command}
+                            onChange={(e) => setCommand(e.target.value)}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter' && !commandLoading) {
+                                    handleExecuteCommand();
+                                }
+                            }}
+                        />
+                    </Form.Group>
+
+                    {commandError && <Alert variant="danger">{commandError}</Alert>}
+
+                    {commandOutput && (
+                        <div>
+                            <Form.Label>Output:</Form.Label>
+                            <pre style={{
+                                backgroundColor: '#f8f9fa',
+                                padding: '1rem',
+                                borderRadius: '4px',
+                                maxHeight: '400px',
+                                overflowY: 'auto',
+                                fontSize: '0.85rem',
+                                whiteSpace: 'pre-wrap'
+                            }}>
+                                {commandOutput}
+                            </pre>
+                        </div>
                     )}
-
-                    <Form>
-                        <Form.Group className="mb-3">
-                            <Form.Label style={{ fontWeight: 600, color: '#495057' }}>
-                                Select Device
-                            </Form.Label>
-                            <Form.Select
-                                value={selectedDevice}
-                                onChange={(e) => setSelectedDevice(e.target.value)}
-                                style={{ borderRadius: '6px', border: '1px solid #ced4da' }}
-                            >
-                                {devices.map((device) => (
-                                    <option key={device.name} value={device.name}>
-                                        {device.name} ({device.status})
-                                    </option>
-                                ))}
-                            </Form.Select>
-                            <Form.Text className="text-muted">
-                                Select the device where you want to execute the command
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label style={{ fontWeight: 600, color: '#495057' }}>
-                                Command
-                            </Form.Label>
-                            <Form.Control
-                                as="textarea"
-                                rows={3}
-                                value={command}
-                                onChange={(e) => setCommand(e.target.value)}
-                                placeholder="Example: ip addr show, ping -c 3 8.8.8.8, cat /etc/hostname"
-                                style={{
-                                    fontFamily: 'monospace',
-                                    fontSize: '13px',
-                                    borderRadius: '6px',
-                                    border: '1px solid #ced4da'
-                                }}
-                            />
-                            <Form.Text className="text-muted">
-                                Enter the command to execute on the selected device
-                            </Form.Text>
-                        </Form.Group>
-
-                        {commandOutput && (
-                            <Form.Group className="mb-3">
-                                <Form.Label style={{ fontWeight: 600, color: '#495057' }}>
-                                    Output
-                                </Form.Label>
-                                <Form.Control
-                                    as="textarea"
-                                    rows={10}
-                                    value={commandOutput}
-                                    readOnly
-                                    style={{
-                                        fontFamily: 'monospace',
-                                        fontSize: '12px',
-                                        backgroundColor: '#f8f9fa',
-                                        borderRadius: '6px',
-                                        border: '1px solid #ced4da'
-                                    }}
-                                />
-                            </Form.Group>
-                        )}
-                    </Form>
                 </Modal.Body>
-                <Modal.Footer style={{ background: '#f8f9fa', borderTop: '1px solid #dee2e6' }}>
-                    <Button
-                        variant="secondary"
-                        onClick={handleCloseCommandModal}
-                        style={{ background: '#6c757d', border: 'none', borderRadius: '6px' }}
-                    >
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseCommandModal}>
                         Close
                     </Button>
                     <Button
                         variant="primary"
                         onClick={handleExecuteCommand}
                         disabled={commandLoading || !selectedDevice || !command.trim()}
-                        style={{ background: '#007bff', border: 'none', borderRadius: '6px' }}
                     >
                         {commandLoading ? (
                             <>
@@ -961,96 +962,60 @@ const Home = () => {
                                 Executing...
                             </>
                         ) : (
-                            '⚡ Execute Command'
+                            'Execute'
                         )}
                     </Button>
                 </Modal.Footer>
             </Modal>
 
             {/* RIB Diff Modal */}
-            <Modal show={showRibDiffModal} onHide={handleCloseRibDiffModal} size="lg">
-                <Modal.Header closeButton style={{ background: '#f8f9fa', borderBottom: '1px solid #dee2e6' }}>
-                    <Modal.Title style={{ color: '#212529', fontWeight: 600 }}>
-                        📊 RIB Diff Analysis
-                    </Modal.Title>
+            <Modal show={showRibDiffModal} onHide={handleCloseRibDiffModal} size="xl">
+                <Modal.Header closeButton>
+                    <Modal.Title>📊 RIB Diff Analysis</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{ background: '#ffffff' }}>
-                    {ribDiffError && (
-                        <Alert variant="danger" onClose={() => setRibDiffError('')} dismissible>
-                            {ribDiffError}
-                        </Alert>
-                    )}
+                <Modal.Body>
+                    <Row className="mb-3">
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>Route Server</Form.Label>
+                                <Form.Select
+                                    value={selectedRouteServer}
+                                    onChange={(e) => setSelectedRouteServer(e.target.value)}
+                                >
+                                    {getRouteServers().map((rs) => (
+                                        <option key={rs.name} value={rs.name}>
+                                            {rs.name}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group>
+                                <Form.Label>IP Version</Form.Label>
+                                <Form.Select
+                                    value={selectedIpVersion}
+                                    onChange={(e) => setSelectedIpVersion(e.target.value)}
+                                >
+                                    <option value="4">IPv4</option>
+                                    <option value="6">IPv6</option>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-                    <Form>
-                        <Row>
-                            <Col md={8}>
-                                <Form.Group className="mb-3">
-                                    <Form.Label style={{ fontWeight: 600, color: '#495057' }}>
-                                        Select Route Server
-                                    </Form.Label>
-                                    <Form.Select
-                                        value={selectedRouteServer}
-                                        onChange={(e) => setSelectedRouteServer(e.target.value)}
-                                        style={{ borderRadius: '6px', border: '1px solid #ced4da' }}
-                                    >
-                                        {getRouteServers().map((rs) => (
-                                            <option key={rs.name} value={rs.name}>
-                                                {rs.name} ({rs.status})
-                                            </option>
-                                        ))}
-                                    </Form.Select>
-                                    <Form.Text className="text-muted">
-                                        Select the route server to analyze
-                                    </Form.Text>
-                                </Form.Group>
-                            </Col>
-                            <Col md={4}>
-                                <Form.Group className="mb-3">
-                                    <Form.Label style={{ fontWeight: 600, color: '#495057' }}>
-                                        IP Version
-                                    </Form.Label>
-                                    <Form.Select
-                                        value={selectedIpVersion}
-                                        onChange={(e) => setSelectedIpVersion(e.target.value)}
-                                        style={{ borderRadius: '6px', border: '1px solid #ced4da' }}
-                                    >
-                                        <option value="4">IPv4</option>
-                                        <option value="6">IPv6</option>
-                                    </Form.Select>
-                                </Form.Group>
-                            </Col>
-                        </Row>
-
-                        <Alert variant="info" className="mb-3">
-                            <small>
-                                <strong>ℹ️ Info:</strong> This will execute <code>bgpctl show rib</code> on the selected route server
-                                and compare it with the expected dump file from the configuration.
-                            </small>
-                        </Alert>
-                    </Form>
-
-                    {ribDiffLoading && (
-                        <div className="text-center p-4">
-                            <Spinner animation="border" variant="primary" />
-                            <p className="mt-2 text-muted">Analyzing RIB... This may take a moment.</p>
-                        </div>
-                    )}
+                    {ribDiffError && <Alert variant="danger">{ribDiffError}</Alert>}
 
                     {renderRibDiffResult()}
                 </Modal.Body>
-                <Modal.Footer style={{ background: '#f8f9fa', borderTop: '1px solid #dee2e6' }}>
-                    <Button
-                        variant="secondary"
-                        onClick={handleCloseRibDiffModal}
-                        style={{ background: '#6c757d', border: 'none', borderRadius: '6px' }}
-                    >
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseRibDiffModal}>
                         Close
                     </Button>
                     <Button
                         variant="primary"
                         onClick={handleExecuteRibDiff}
                         disabled={ribDiffLoading || !selectedRouteServer}
-                        style={{ background: '#17a2b8', border: 'none', borderRadius: '6px' }}
                     >
                         {ribDiffLoading ? (
                             <>
@@ -1058,7 +1023,7 @@ const Home = () => {
                                 Analyzing...
                             </>
                         ) : (
-                            '📊 Execute RIB Diff'
+                            'Run Diff'
                         )}
                     </Button>
                 </Modal.Footer>
