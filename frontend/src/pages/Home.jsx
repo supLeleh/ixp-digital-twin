@@ -11,7 +11,7 @@ const Home = () => {
     const [selectedFile, setSelectedFile] = useState('ixp.conf');
     const [devices, setDevices] = useState([]);
     const [statsPollingEnabled, setStatsPollingEnabled] = useState(true);
-    
+
     // ✅ NUOVO: Stato per intervallo polling configurabile
     const [pollingInterval, setPollingInterval] = useState(() => {
         const saved = localStorage.getItem('pollingInterval');
@@ -33,7 +33,7 @@ const Home = () => {
     const [ribDiffResult, setRibDiffResult] = useState(null);
     const [ribDiffLoading, setRibDiffLoading] = useState(false);
     const [ribDiffError, setRibDiffError] = useState('');
-    
+
     // Stati per visualizzazione rotte
     const [showNotLoadedRoutes, setShowNotLoadedRoutes] = useState(false);
     const [showExtraRoutes, setShowExtraRoutes] = useState(false);
@@ -303,6 +303,23 @@ const Home = () => {
         const wasPollingEnabled = statsPollingEnabled;
         setStatsPollingEnabled(false);
 
+        const handleReloadLab = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/reload`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename: selectedFile })
+                });
+
+                if (!res.ok) throw new Error('Reload failed');
+
+                const data = await res.json();
+                setMessage(`Lab reloaded! Hash: ${data.lab_hash}`);
+            } catch (error) {
+                setMessage(`Reload error: ${error.message}`);
+            }
+        };
+
         try {
             const params = new URLSearchParams({
                 machine_name: selectedRouteServer,
@@ -407,8 +424,8 @@ const Home = () => {
                                     <td>Routes in dump but not in RIB</td>
                                     <td>
                                         {ribDiffResult.notloaded > 0 && (
-                                            <Button 
-                                                variant="outline-warning" 
+                                            <Button
+                                                variant="outline-warning"
                                                 size="sm"
                                                 onClick={() => setShowNotLoadedRoutes(!showNotLoadedRoutes)}
                                             >
@@ -423,8 +440,8 @@ const Home = () => {
                                     <td>Routes in RIB but not in dump</td>
                                     <td>
                                         {ribDiffResult.missing > 0 && (
-                                            <Button 
-                                                variant="outline-danger" 
+                                            <Button
+                                                variant="outline-danger"
                                                 size="sm"
                                                 onClick={() => setShowExtraRoutes(!showExtraRoutes)}
                                             >
@@ -440,25 +457,25 @@ const Home = () => {
                             <Alert variant="warning" className="mt-3">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                     <strong>Routes Not Loaded ({ribDiffResult.not_loaded_routes.length})</strong>
-                                    <Button 
-                                        variant="warning" 
+                                    <Button
+                                        variant="warning"
                                         size="sm"
                                         onClick={() => downloadRoutes(ribDiffResult.not_loaded_routes, 'not_loaded_routes.txt')}
                                     >
                                         📥 Download
                                     </Button>
                                 </div>
-                                <div style={{ 
-                                    maxHeight: '300px', 
-                                    overflowY: 'auto', 
-                                    backgroundColor: '#fff', 
+                                <div style={{
+                                    maxHeight: '300px',
+                                    overflowY: 'auto',
+                                    backgroundColor: '#fff',
                                     padding: '10px',
                                     borderRadius: '4px',
                                     border: '1px solid #ffc107'
                                 }}>
-                                    <pre style={{ 
-                                        fontFamily: 'monospace', 
-                                        fontSize: '12px', 
+                                    <pre style={{
+                                        fontFamily: 'monospace',
+                                        fontSize: '12px',
                                         margin: 0,
                                         whiteSpace: 'pre-wrap'
                                     }}>
@@ -472,25 +489,25 @@ const Home = () => {
                             <Alert variant="danger" className="mt-3">
                                 <div className="d-flex justify-content-between align-items-center mb-2">
                                     <strong>Extra Routes ({ribDiffResult.extra_routes.length})</strong>
-                                    <Button 
-                                        variant="danger" 
+                                    <Button
+                                        variant="danger"
                                         size="sm"
                                         onClick={() => downloadRoutes(ribDiffResult.extra_routes, 'extra_routes.txt')}
                                     >
                                         📥 Download
                                     </Button>
                                 </div>
-                                <div style={{ 
-                                    maxHeight: '300px', 
-                                    overflowY: 'auto', 
-                                    backgroundColor: '#fff', 
+                                <div style={{
+                                    maxHeight: '300px',
+                                    overflowY: 'auto',
+                                    backgroundColor: '#fff',
                                     padding: '10px',
                                     borderRadius: '4px',
                                     border: '1px solid #dc3545'
                                 }}>
-                                    <pre style={{ 
-                                        fontFamily: 'monospace', 
-                                        fontSize: '12px', 
+                                    <pre style={{
+                                        fontFamily: 'monospace',
+                                        fontSize: '12px',
                                         margin: 0,
                                         whiteSpace: 'pre-wrap'
                                     }}>
@@ -606,10 +623,10 @@ const Home = () => {
                                         ? '#f5f5f5'
                                         : 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)',
                                 border: `3px solid ${labStatus === 'running'
-                                        ? '#28a745'
-                                        : labStatus === 'stopped'
-                                            ? '#9e9e9e'
-                                            : '#ffc107'
+                                    ? '#28a745'
+                                    : labStatus === 'stopped'
+                                        ? '#9e9e9e'
+                                        : '#ffc107'
                                     }`,
                                 display: 'flex',
                                 alignItems: 'center',
@@ -735,7 +752,7 @@ const Home = () => {
                         <h5 style={{ marginBottom: 0, fontWeight: 600, color: '#212529' }}>
                             Lab Devices ({devices.length})
                         </h5>
-                        
+
                         {/* ✅ MODIFICATO: Aggiunto input numerico per polling interval */}
                         <div className="d-flex align-items-center gap-3">
                             <InputGroup size="sm" style={{ maxWidth: '150px' }}>
@@ -752,7 +769,7 @@ const Home = () => {
                                 />
                                 <InputGroup.Text>sec</InputGroup.Text>
                             </InputGroup>
-                            
+
                             <Form.Check
                                 type="switch"
                                 id="stats-polling-switch"

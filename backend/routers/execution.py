@@ -5,7 +5,7 @@ from threading import Thread
 from fastapi.responses import JSONResponse
 from utils.responses import *
 from Kathara.manager.Kathara import Kathara
-from fastapi import APIRouter, status, Response, Body
+from fastapi import APIRouter, status, Response, Body, HTTPException
 from start_lab import build_lab, start_lab
 from reload_lab import reload_lab
 from model.file import ConfigFileModel
@@ -54,7 +54,6 @@ def startup():
 @router.post("/start", status_code=status.HTTP_201_CREATED)
 async def run_namex_lab(ixp_file: ConfigFileModel, response: Response):
     try:
-
         # Pulisci la cache
         get_stats_cache().clear()
 
@@ -162,8 +161,62 @@ async def wipe_namex_lab(response: Response):
         return error_5xx(response, message=f"Error wiping lab: {str(e)}")
 
 
+# ✅ CORRETTO: Rinominato endpoint e usa ServerContext
+@router.post("/reload", status_code=status.HTTP_200_OK)
+async def reload_lab_endpoint(ixp_file: ConfigFileModel, response: Response):
+    """
+    Hot-reload lab configuration without full restart.
+    Only redeploys changed devices and updates configurations.
+    """
+    try:
+        # ✅ Usa ServerContext invece di app.running_instance_hash
+        if not ServerContext.get_lab():
+            return error_4xx(
+                response,
+                status.HTTP_400_BAD_REQUEST,
+                message="No lab is currently running. Use /ixp/start instead.",
+            )
+
+        filename = ixp_file.filename
+        logging.info(f"=== RELOAD LAB REQUEST ===")
+        logging.info(f"Reloading lab with config: {filename}")
+
+        # Pulisci la cache
+        get_stats_cache().clear()
+
+        # Execute hot-reload
+        net_scenario = reload_lab(filename)
+
+        # ✅ Aggiorna ServerContext
+        ServerContext.set_lab(net_scenario)
+        ServerContext.set_ixpconf_filename(filename)
+        ServerContext.set_total_machines(net_scenario.machines)
+
+        logging.info(f"Lab reloaded successfully. New hash: {net_scenario.hash}")
+        logging.info(f"Total machines: {len(net_scenario.machines)}")
+        logging.info(f"=========================")
+
+        return success_2xx(key_mess="lab_hash", message=net_scenario.hash)
+
+    except FileNotFoundError as e:
+        logging.error(f"Config file not found: {e}")
+        return error_4xx(
+            response,
+            status.HTTP_404_NOT_FOUND,
+            message=f"Configuration file not found: {filename}",
+        )
+    except Exception as e:
+        logging.error(f"Failed to reload lab: {e}")
+        logging.error(traceback.format_exc())
+        return error_5xx(response, message=f"Failed to reload lab: {str(e)}")
+
+
+# ✅ NOTA: Questo endpoint esisteva già, lo lascio com'è
 @router.post("/hot_reload", status_code=status.HTTP_200_OK)
 async def hot_reload_namex_lab(lab: BodyLab, response: Response):
+    """
+    Legacy hot reload endpoint (usa lab hash per validazione)
+    """
     if not ServerContext.get_lab():
         return error_4xx(response, status.HTTP_404_NOT_FOUND, message="no lab running")
     if ServerContext.get_lab().hash != lab.hash:

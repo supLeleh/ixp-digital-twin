@@ -1,133 +1,368 @@
-INFO | 2025-12-15 12:05:24+0100 : Content of 'C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\logs\namex.log' has been reset.
-INFO | 2025-12-15 12:05:24+0100 : Building lab..
-INFO | 2025-12-15 12:05:24+0100 : Config filename received: ixp.conf
-INFO | 2025-12-15 12:05:24+0100 : settings: <digital_twin.ixp.settings.settings.Settings object at 0x0000025540A8E680>
-INFO | 2025-12-15 12:05:24+0100 : Loading config file from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp.conf
-INFO | 2025-12-15 12:05:24+0100 : Peering configuration: {'type': 'ixp_manager', 'path': 'config_peerings.json'}
-INFO | 2025-12-15 12:05:24+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump
-INFO | 2025-12-15 12:05:24+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump`...
-INFO | 2025-12-15 12:05:25+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump
-INFO | 2025-12-15 12:05:25+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump`...
-INFO | 2025-12-15 12:05:26+0100 : Creating Kathara network scenario...
-SUCCESS | 2025-12-15 12:05:26+0100 : Device `as42_0` created.
-SUCCESS | 2025-12-15 12:05:26+0100 : Device `as112_0` created.
-INFO | 2025-12-15 12:05:26+0100 : Skipping device `as112_1` because it has no routes
-SUCCESS | 2025-12-15 12:05:26+0100 : Device `as137_0` created.
-SUCCESS | 2025-12-15 12:05:26+0100 : Device `as1267_0` created.
-INFO | 2025-12-15 12:05:26+0100 : Skipping device `as1299_0` because it has no routes
-INFO | 2025-12-15 12:05:26+0100 : Configuring FRR BGP in device `as42_0`...
-INFO | 2025-12-15 12:05:26+0100 : Configuring FRR BGP in device `as112_0`...
-INFO | 2025-12-15 12:05:26+0100 : Configuring FRR BGP in device `as137_0`...
-INFO | 2025-12-15 12:05:26+0100 : Configuring FRR BGP in device `as1267_0`...
-INFO | 2025-12-15 12:05:26+0100 : Configuring OpenBGPD in device `rs1_v4`...
-SUCCESS | 2025-12-15 12:05:26+0100 : Device `rs1_v4` created.
-INFO | 2025-12-15 12:05:26+0100 : Configuring OpenBGPD in device `rs1_v6`...
-SUCCESS | 2025-12-15 12:05:26+0100 : Device `rs1_v6` created.
-WARNING | 2025-12-15 12:05:26+0100 : No host interface specified! It is not possible to connect external peers!
-INFO | 2025-12-15 12:05:26+0100 : Lab built successfully, hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-15 12:05:26+0100 : Machines in lab: ['as42_0', 'as112_0', 'as137_0', 'as1267_0', 'rs1_v4', 'rs1_v6', 'switch']
-INFO | 2025-12-15 12:05:26+0100 : Lab built successfully. Hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-15 12:05:26+0100 : Machines in lab: ['as42_0', 'as112_0', 'as137_0', 'as1267_0', 'rs1_v4', 'rs1_v6', 'switch']
-INFO | 2025-12-15 12:05:26+0100 : =========================
-INFO | 2025-12-15 12:05:26+0100 : Deploying lab..
-INFO | 2025-12-15 12:05:26+0100 : Undeploying network scenario...
-SUCCESS | 2025-12-15 12:05:27+0100 : Network scenario undeployed!
-INFO | 2025-12-15 12:05:27+0100 : Deploying network scenario...
-INFO | 2025-12-15 12:05:35+0100 : Found 0 running containers
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device as42_0
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device as112_0
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device as137_0
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device as1267_0
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device rs1_v4
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device rs1_v6
-WARNING | 2025-12-15 12:05:35+0100 : Container not found for device switch
-INFO | 2025-12-15 12:05:45+0100 : Found 2 running containers
-WARNING | 2025-12-15 12:05:45+0100 : Container not found for device as42_0
-WARNING | 2025-12-15 12:05:45+0100 : Container not found for device as112_0
-WARNING | 2025-12-15 12:05:45+0100 : Container not found for device as137_0
-WARNING | 2025-12-15 12:05:45+0100 : Container not found for device as1267_0
-WARNING | 2025-12-15 12:05:45+0100 : Container not found for device rs1_v4
-INFO | 2025-12-15 12:05:45+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:05:47+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:05:52+0100 : Deployed devices: 3/7
-INFO | 2025-12-15 12:05:55+0100 : Found 3 running containers
-WARNING | 2025-12-15 12:05:55+0100 : Container not found for device as42_0
-WARNING | 2025-12-15 12:05:55+0100 : Container not found for device as112_0
-WARNING | 2025-12-15 12:05:55+0100 : Container not found for device as137_0
-WARNING | 2025-12-15 12:05:55+0100 : Container not found for device as1267_0
-INFO | 2025-12-15 12:05:55+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:05:57+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:05:59+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:06:00+0100 : Deployed devices: 7/7
-SUCCESS | 2025-12-15 12:06:00+0100 : Network scenario deployed!
-INFO | 2025-12-15 12:06:00+0100 : Deploy lab complete
-INFO | 2025-12-15 12:06:15+0100 : Found 7 running containers
-INFO | 2025-12-15 12:06:15+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:06:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:06:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:06:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:06:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:06:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:06:26+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:06:34+0100 : Found 7 running containers
-INFO | 2025-12-15 12:06:34+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:06:35+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:06:37+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:06:39+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:06:41+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:06:43+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:06:45+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:06:53+0100 : Found 7 running containers
-INFO | 2025-12-15 12:06:53+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:06:54+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:06:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:06:58+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:07:00+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:07:03+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:07:04+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:07:12+0100 : Found 7 running containers
-INFO | 2025-12-15 12:07:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:07:13+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:07:15+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:07:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:07:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:07:21+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:07:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:07:32+0100 : Found 7 running containers
-INFO | 2025-12-15 12:07:32+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:07:33+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:07:35+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:07:37+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:07:39+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:07:42+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:07:44+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:07:52+0100 : Found 7 running containers
-INFO | 2025-12-15 12:07:52+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:07:53+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:07:55+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:07:57+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:07:59+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:08:01+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:08:03+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:08:10+0100 : Found 7 running containers
-INFO | 2025-12-15 12:08:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:08:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:08:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:08:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:08:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:08:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:08:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:08:29+0100 : Found 7 running containers
-INFO | 2025-12-15 12:08:29+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
-INFO | 2025-12-15 12:08:30+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
-INFO | 2025-12-15 12:08:32+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
-INFO | 2025-12-15 12:08:34+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
-INFO | 2025-12-15 12:08:36+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
-INFO | 2025-12-15 12:08:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
-INFO | 2025-12-15 12:08:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
-INFO | 2025-12-15 12:08:43+0100 : Starting lab wipe...
-INFO | 2025-12-15 12:08:43+0100 : Cache cleared
-INFO | 2025-12-15 12:08:43+0100 : Wiping lab with hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-15 12:08:43+0100 : Executing Kathara wipe...
-INFO | 2025-12-15 12:08:43+0100 : Wipe started in background
-INFO | 2025-12-15 12:08:47+0100 : Kathara wipe completed
+INFO | 2025-12-15 12:46:11+0100 : Content of 'C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\logs\namex.log' has been reset.
+INFO | 2025-12-15 12:46:11+0100 : ================================================================================
+INFO | 2025-12-15 12:46:11+0100 : Starting LAB HOT-RELOAD
+INFO | 2025-12-15 12:46:11+0100 : ================================================================================
+INFO | 2025-12-15 12:46:11+0100 : Config filename: ixp.conf
+INFO | 2025-12-15 12:46:11+0100 : Loading config from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp.conf
+INFO | 2025-12-15 12:46:11+0100 : Quarantine section not present (optional)
+INFO | 2025-12-15 12:46:11+0100 : Peering configuration: {'type': 'ixp_manager', 'path': 'config_peerings.json'}
+INFO | 2025-12-15 12:46:11+0100 : Loaded 200 member entries
+INFO | 2025-12-15 12:46:11+0100 : Loading RIB dump (IPv4): C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump
+INFO | 2025-12-15 12:46:11+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump`...
+INFO | 2025-12-15 12:46:11+0100 : Loading RIB dump (IPv6): C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump
+INFO | 2025-12-15 12:46:11+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump`...
+INFO | 2025-12-15 12:46:12+0100 : Loaded RIB dumps for 2 IP versions
+INFO | 2025-12-15 12:46:12+0100 : Limited table dump entries: 200 -> 5 (debug mode)
+INFO | 2025-12-15 12:46:12+0100 : Analyzing configuration changes...
+INFO | 2025-12-15 12:46:12+0100 : Fetching Kathara network scenario...
+INFO | 2025-12-15 12:46:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:46:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:46:14+0100 : Updating Kathara network scenario...
+INFO | 2025-12-15 12:46:14+0100 : Skipping device `as112_1` because it has no routes
+INFO | 2025-12-15 12:46:14+0100 : Skipping device `as1299_0` because it has no routes
+INFO | 2025-12-15 12:46:14+0100 : Network scenario hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-15 12:46:16+0100 : Found 39 existing containers: {'as60989_0_iQnk9KyBDBJPmZROLT6Tw', 'as112_0_iQnk9KyBDBJPmZROLT6Tw', 'as205850_0_iQnk9KyBDBJPmZROLT6Tw', 'as29438_0_iQnk9KyBDBJPmZROLT6Tw', 'as21176_0_iQnk9KyBDBJPmZROLT6Tw', 'as137_0_iQnk9KyBDBJPmZROLT6Tw', 'as197440_0_iQnk9KyBDBJPmZROLT6Tw', 'as21056_0_iQnk9KyBDBJPmZROLT6Tw', 'as24796_0_iQnk9KyBDBJPmZROLT6Tw', 'as1267_0_iQnk9KyBDBJPmZROLT6Tw', 'switch_iQnk9KyBDBJPmZROLT6Tw', 'as31617_0_iQnk9KyBDBJPmZROLT6Tw', 'as54113_0_iQnk9KyBDBJPmZROLT6Tw', 'as199699_0_iQnk9KyBDBJPmZROLT6Tw', 'as199181_0_iQnk9KyBDBJPmZROLT6Tw', 'as15605_0_iQnk9KyBDBJPmZROLT6Tw', 'rs1_v6_iQnk9KyBDBJPmZROLT6Tw', 'as197075_0_iQnk9KyBDBJPmZROLT6Tw', 'as209624_0_iQnk9KyBDBJPmZROLT6Tw', 'as39479_0_iQnk9KyBDBJPmZROLT6Tw', 'as15169_0_iQnk9KyBDBJPmZROLT6Tw', 'as34428_0_iQnk9KyBDBJPmZROLT6Tw', 'as206355_0_iQnk9KyBDBJPmZROLT6Tw', 'as209992_0_iQnk9KyBDBJPmZROLT6Tw', 'as42_0_iQnk9KyBDBJPmZROLT6Tw', 'as205385_0_iQnk9KyBDBJPmZROLT6Tw', 'as28716_0_iQnk9KyBDBJPmZROLT6Tw', 'as200553_0_iQnk9KyBDBJPmZROLT6Tw', 'as207715_0_iQnk9KyBDBJPmZROLT6Tw', 'as35131_0_iQnk9KyBDBJPmZROLT6Tw', 'as12637_0_iQnk9KyBDBJPmZROLT6Tw', 'as209529_0_iQnk9KyBDBJPmZROLT6Tw', 'as52030_1_iQnk9KyBDBJPmZROLT6Tw', 'rs1_v4_iQnk9KyBDBJPmZROLT6Tw', 'as8265_0_iQnk9KyBDBJPmZROLT6Tw', 'as21034_0_iQnk9KyBDBJPmZROLT6Tw', 'as206737_0_iQnk9KyBDBJPmZROLT6Tw', 'as49605_0_iQnk9KyBDBJPmZROLT6Tw', 'as210026_0_iQnk9KyBDBJPmZROLT6Tw'}
+INFO | 2025-12-15 12:46:16+0100 : No new devices to deploy. Updating existing configurations only.
+INFO | 2025-12-15 12:46:16+0100 : Uploading Route Server configurations...
+INFO | 2025-12-15 12:46:16+0100 : Getting configuration information for device `rs1_v4`...
+INFO | 2025-12-15 12:46:16+0100 : Configuration information retrieved for device `rs1_v4`: ({'/etc/bgpd.conf': 'C:\\Users\\lele1\\Documents\\Kathara\\simple-file-manager-react\\simple-file-manager-react\\backend\\digital_twin\\resources\\rs1-rom-v4.conf'}, '/usr/sbin/bgpctl reload', <bound method OpenBgpdVendorDevice.config_has_errors of <digital_twin.ixp.configuration.rs.open_bgpd_vendor_device.OpenBgpdVendorDevice object at 0x000002BF52218EC0>>)
+INFO | 2025-12-15 12:46:16+0100 : Getting configuration information for device `rs1_v6`...
+INFO | 2025-12-15 12:46:16+0100 : Configuration information retrieved for device `rs1_v6`: ({'/etc/bgpd.conf': 'C:\\Users\\lele1\\Documents\\Kathara\\simple-file-manager-react\\simple-file-manager-react\\backend\\digital_twin\\resources\\rs1-rom-v6.conf'}, '/usr/sbin/bgpctl reload', <bound method OpenBgpdVendorDevice.config_has_errors of <digital_twin.ixp.configuration.rs.open_bgpd_vendor_device.OpenBgpdVendorDevice object at 0x000002BF52218EC0>>)
+INFO | 2025-12-15 12:46:16+0100 : Copying {'/etc/bgpd.conf': 'C:\\Users\\lele1\\Documents\\Kathara\\simple-file-manager-react\\simple-file-manager-react\\backend\\digital_twin\\resources\\rs1-rom-v4.conf'} into device `rs1_v4`...
+INFO | 2025-12-15 12:46:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:46:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:46:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:46:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:46:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:46:27+0100 : Executing command `/usr/sbin/bgpctl reload` in device `rs1_v4`...
+INFO | 2025-12-15 12:46:27+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:46:28+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:46:30+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:46:32+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:46:34+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:46:36+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:46:36+0100 : `/usr/sbin/bgpctl reload` in device `rs1_v4` returned output:
+reload request sent.
+request processed
+
+INFO | 2025-12-15 12:46:36+0100 : Copying {'/etc/bgpd.conf': 'C:\\Users\\lele1\\Documents\\Kathara\\simple-file-manager-react\\simple-file-manager-react\\backend\\digital_twin\\resources\\rs1-rom-v6.conf'} into device `rs1_v6`...
+INFO | 2025-12-15 12:46:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:46:39+0100 : Executing command `/usr/sbin/bgpctl reload` in device `rs1_v6`...
+INFO | 2025-12-15 12:46:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:46:43+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:46:43+0100 : `/usr/sbin/bgpctl reload` in device `rs1_v6` returned output:
+reload request sent.
+request processed
+
+INFO | 2025-12-15 12:46:43+0100 : Route Server configurations uploaded
+INFO | 2025-12-15 12:46:43+0100 : Uploading Peering configurations...
+INFO | 2025-12-15 12:46:43+0100 : Getting configuration information for device `as42_0`...
+INFO | 2025-12-15 12:46:43+0100 : Configuration information retrieved for device `as42_0`: ({'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F1840>}, 'systemctl restart frr', <function FrrScenarioConfigurationApplier.get_device_info.<locals>.<lambda> at 0x000002BF529D2160>)
+INFO | 2025-12-15 12:46:43+0100 : Getting configuration information for device `as112_0`...
+INFO | 2025-12-15 12:46:43+0100 : Configuration information retrieved for device `as112_0`: ({'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F1A80>}, 'systemctl restart frr', <function FrrScenarioConfigurationApplier.get_device_info.<locals>.<lambda> at 0x000002BF529D1F80>)
+WARNING | 2025-12-15 12:46:43+0100 : Skipping device `as112_1` since not in the network scenario...
+INFO | 2025-12-15 12:46:43+0100 : Getting configuration information for device `as137_0`...
+INFO | 2025-12-15 12:46:43+0100 : Configuration information retrieved for device `as137_0`: ({'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F19C0>}, 'systemctl restart frr', <function FrrScenarioConfigurationApplier.get_device_info.<locals>.<lambda> at 0x000002BF529D1120>)
+INFO | 2025-12-15 12:46:43+0100 : Getting configuration information for device `as1267_0`...
+INFO | 2025-12-15 12:46:43+0100 : Configuration information retrieved for device `as1267_0`: ({'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F0340>}, 'systemctl restart frr', <function FrrScenarioConfigurationApplier.get_device_info.<locals>.<lambda> at 0x000002BF529D1D00>)
+WARNING | 2025-12-15 12:46:43+0100 : Skipping device `as1299_0` since not in the network scenario...
+INFO | 2025-12-15 12:46:43+0100 : Copying {'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F1840>} into device `as42_0`...
+INFO | 2025-12-15 12:46:44+0100 : Executing command `systemctl restart frr` in device `as42_0`...
+INFO | 2025-12-15 12:46:45+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:46:47+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:46:50+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:46:50+0100 : `systemctl restart frr` in device `as42_0` returned output:
+None
+INFO | 2025-12-15 12:46:50+0100 : Copying {'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F1A80>} into device `as112_0`...
+INFO | 2025-12-15 12:46:50+0100 : Executing command `systemctl restart frr` in device `as112_0`...
+INFO | 2025-12-15 12:46:52+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:46:52+0100 : `systemctl restart frr` in device `as112_0` returned output:
+None
+INFO | 2025-12-15 12:46:52+0100 : Copying {'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F19C0>} into device `as137_0`...
+INFO | 2025-12-15 12:46:52+0100 : Executing command `systemctl restart frr` in device `as137_0`...
+INFO | 2025-12-15 12:46:54+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:46:55+0100 : `systemctl restart frr` in device `as137_0` returned output:
+None
+INFO | 2025-12-15 12:46:55+0100 : Copying {'/etc/frr/bgpd.conf': <_io.StringIO object at 0x000002BF522F0340>} into device `as1267_0`...
+INFO | 2025-12-15 12:46:55+0100 : Executing command `systemctl restart frr` in device `as1267_0`...
+INFO | 2025-12-15 12:46:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:46:57+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:46:58+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:47:01+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:47:02+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:47:03+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:47:05+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:47:07+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:47:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:47:11+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:47:11+0100 : `systemctl restart frr` in device `as1267_0` returned output:
+None
+INFO | 2025-12-15 12:47:11+0100 : Peering configurations uploaded
+INFO | 2025-12-15 12:47:11+0100 : ================================================================================
+INFO | 2025-12-15 12:47:11+0100 : LAB HOT-RELOAD COMPLETED SUCCESSFULLY!
+INFO | 2025-12-15 12:47:11+0100 : Total machines in scenario: 39
+INFO | 2025-12-15 12:47:11+0100 : New machines deployed: 0
+INFO | 2025-12-15 12:47:11+0100 : Skipped existing machines: 0
+INFO | 2025-12-15 12:47:11+0100 : Lab hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-15 12:47:11+0100 : ================================================================================
+INFO | 2025-12-15 12:47:12+0100 : Reload successful! Lab hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-15 12:47:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:47:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:47:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:47:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:47:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:47:23+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:47:25+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 12:48:09+0100 : Found 39 running containers
+INFO | 2025-12-15 12:48:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 12:48:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:48:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:48:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:48:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:48:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:48:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:48:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:48:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:48:26+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:48:28+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:48:30+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:48:32+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:48:34+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:48:36+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:48:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:48:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:48:42+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:48:44+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:48:46+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:48:48+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:48:50+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:48:52+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:48:54+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:48:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:48:58+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:49:01+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:49:03+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:49:05+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:49:07+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:49:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:49:11+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:49:13+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:49:15+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:49:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:49:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:49:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:49:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:49:26+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 12:50:12+0100 : Found 39 running containers
+INFO | 2025-12-15 12:50:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 12:50:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:50:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:50:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:50:21+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:50:23+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:50:25+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:50:27+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:50:28+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:50:30+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:50:32+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:50:34+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:50:36+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:50:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:50:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:50:43+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:50:44+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:50:46+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:50:48+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:50:50+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:50:52+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:50:54+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:50:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:50:57+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:50:59+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:51:01+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:51:03+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:51:05+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:51:07+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:51:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:51:11+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:51:13+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:51:15+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:51:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:51:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:51:21+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:51:23+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:51:25+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:51:28+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 12:52:09+0100 : Found 39 running containers
+INFO | 2025-12-15 12:52:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 12:52:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:52:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:52:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:52:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:52:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:52:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:52:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:52:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:52:26+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:52:28+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:52:30+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:52:32+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:52:34+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:52:36+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:52:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:52:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:52:42+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:52:44+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:52:47+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:52:49+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:52:51+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:52:53+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:52:55+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:52:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:52:58+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:53:00+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:53:02+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:53:04+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:53:07+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:53:08+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:53:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:53:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:53:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:53:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:53:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:53:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:53:21+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:53:23+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 12:54:09+0100 : Found 39 running containers
+INFO | 2025-12-15 12:54:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 12:54:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:54:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:54:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:54:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:54:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:54:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:54:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:54:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:54:26+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:54:27+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:54:29+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:54:31+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:54:33+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:54:35+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:54:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:54:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:54:42+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:54:44+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:54:46+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:54:48+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:54:50+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:54:52+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:54:54+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:54:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:54:58+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:55:00+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:55:02+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:55:04+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:55:07+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:55:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:55:11+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:55:13+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:55:15+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:55:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:55:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:55:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:55:21+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:55:23+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 12:56:09+0100 : Found 39 running containers
+INFO | 2025-12-15 12:56:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 12:56:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:56:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:56:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:56:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:56:17+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:56:19+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:56:21+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:56:23+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:56:25+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:56:27+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:56:29+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:56:31+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:56:33+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:56:36+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:56:38+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:56:40+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:56:42+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:56:44+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:56:46+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:56:48+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:56:50+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:56:52+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:56:54+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:56:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:56:57+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:56:59+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:57:01+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:57:03+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:57:06+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:57:08+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:57:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:57:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:57:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:57:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:57:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:57:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:57:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:57:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 12:58:09+0100 : Found 39 running containers
+INFO | 2025-12-15 12:58:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 12:58:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 12:58:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 12:58:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 12:58:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 12:58:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 12:58:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 12:58:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 12:58:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 12:58:26+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 12:58:29+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 12:58:31+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
+INFO | 2025-12-15 12:58:33+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as210026_0_iQnk9KyBDBJPmZROLT6Tw by search for device as210026_0
+INFO | 2025-12-15 12:58:35+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60989_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60989_0
+INFO | 2025-12-15 12:58:37+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-15 12:58:39+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as39479_0_iQnk9KyBDBJPmZROLT6Tw by search for device as39479_0
+INFO | 2025-12-15 12:58:41+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209992_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209992_0
+INFO | 2025-12-15 12:58:43+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209529_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209529_0
+INFO | 2025-12-15 12:58:45+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206737_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206737_0
+INFO | 2025-12-15 12:58:47+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as54113_0_iQnk9KyBDBJPmZROLT6Tw by search for device as54113_0
+INFO | 2025-12-15 12:58:49+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205385_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205385_0
+INFO | 2025-12-15 12:58:51+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as29438_0_iQnk9KyBDBJPmZROLT6Tw by search for device as29438_0
+INFO | 2025-12-15 12:58:53+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as34428_0_iQnk9KyBDBJPmZROLT6Tw by search for device as34428_0
+INFO | 2025-12-15 12:58:55+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as205850_0_iQnk9KyBDBJPmZROLT6Tw by search for device as205850_0
+INFO | 2025-12-15 12:58:56+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197440_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197440_0
+INFO | 2025-12-15 12:58:58+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199699_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199699_0
+INFO | 2025-12-15 12:59:00+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as199181_0_iQnk9KyBDBJPmZROLT6Tw by search for device as199181_0
+INFO | 2025-12-15 12:59:02+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as197075_0_iQnk9KyBDBJPmZROLT6Tw by search for device as197075_0
+INFO | 2025-12-15 12:59:04+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as12637_0_iQnk9KyBDBJPmZROLT6Tw by search for device as12637_0
+INFO | 2025-12-15 12:59:06+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21056_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21056_0
+INFO | 2025-12-15 12:59:08+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as209624_0_iQnk9KyBDBJPmZROLT6Tw by search for device as209624_0
+INFO | 2025-12-15 12:59:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as28716_0_iQnk9KyBDBJPmZROLT6Tw by search for device as28716_0
+INFO | 2025-12-15 12:59:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as206355_0_iQnk9KyBDBJPmZROLT6Tw by search for device as206355_0
+INFO | 2025-12-15 12:59:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21176_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21176_0
+INFO | 2025-12-15 12:59:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as24796_0_iQnk9KyBDBJPmZROLT6Tw by search for device as24796_0
+INFO | 2025-12-15 12:59:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as52030_1_iQnk9KyBDBJPmZROLT6Tw by search for device as52030_1
+INFO | 2025-12-15 12:59:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as35131_0_iQnk9KyBDBJPmZROLT6Tw by search for device as35131_0
+INFO | 2025-12-15 12:59:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as207715_0_iQnk9KyBDBJPmZROLT6Tw by search for device as207715_0
+INFO | 2025-12-15 12:59:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15605_0
+INFO | 2025-12-15 13:00:09+0100 : Found 39 running containers
+INFO | 2025-12-15 13:00:09+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as137_0_iQnk9KyBDBJPmZROLT6Tw by search for device as137_0
+INFO | 2025-12-15 13:00:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as112_0_iQnk9KyBDBJPmZROLT6Tw by search for device as112_0
+INFO | 2025-12-15 13:00:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as42_0_iQnk9KyBDBJPmZROLT6Tw by search for device as42_0
+INFO | 2025-12-15 13:00:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-15 13:00:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as21034_0_iQnk9KyBDBJPmZROLT6Tw by search for device as21034_0
+INFO | 2025-12-15 13:00:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as200553_0_iQnk9KyBDBJPmZROLT6Tw by search for device as200553_0
+INFO | 2025-12-15 13:00:20+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-15 13:00:22+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-15 13:00:24+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v6_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v6
+INFO | 2025-12-15 13:00:27+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as49605_0_iQnk9KyBDBJPmZROLT6Tw by search for device as49605_0
+INFO | 2025-12-15 13:00:28+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as31617_0_iQnk9KyBDBJPmZROLT6Tw by search for device as31617_0
+INFO | 2025-12-15 13:00:30+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as8265_0_iQnk9KyBDBJPmZROLT6Tw by search for device as8265_0
