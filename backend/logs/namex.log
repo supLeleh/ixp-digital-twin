@@ -1,49 +1,70 @@
-INFO | 2025-12-15 14:11:44+0100 : Content of 'C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\logs\namex.log' has been reset.
-INFO | 2025-12-15 14:11:44+0100 : Building lab..
-INFO | 2025-12-15 14:11:44+0100 : Config filename received: ixp.conf
-INFO | 2025-12-15 14:11:44+0100 : settings: <digital_twin.ixp.settings.settings.Settings object at 0x00000291D9BBE9E0>
-INFO | 2025-12-15 14:11:44+0100 : Loading config file from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp.conf
-INFO | 2025-12-15 14:11:44+0100 : Peering configuration: {'type': 'ixp_manager', 'path': 'config_peerings.json'}
-INFO | 2025-12-15 14:11:44+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump
-INFO | 2025-12-15 14:11:44+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump`...
-INFO | 2025-12-15 14:11:45+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump
-INFO | 2025-12-15 14:11:45+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump`...
-INFO | 2025-12-15 14:11:45+0100 : Creating Kathara network scenario...
-SUCCESS | 2025-12-15 14:11:45+0100 : Device `as42_0` created.
-SUCCESS | 2025-12-15 14:11:45+0100 : Device `as112_0` created.
-INFO | 2025-12-15 14:11:45+0100 : Skipping device `as112_1` because it has no routes
-SUCCESS | 2025-12-15 14:11:45+0100 : Device `as137_0` created.
-SUCCESS | 2025-12-15 14:11:45+0100 : Device `as1267_0` created.
-INFO | 2025-12-15 14:11:45+0100 : Skipping device `as1299_0` because it has no routes
-INFO | 2025-12-15 14:11:45+0100 : Configuring FRR BGP in device `as42_0`...
-INFO | 2025-12-15 14:11:45+0100 : Configuring FRR BGP in device `as112_0`...
-INFO | 2025-12-15 14:11:45+0100 : Configuring FRR BGP in device `as137_0`...
-INFO | 2025-12-15 14:11:45+0100 : Configuring FRR BGP in device `as1267_0`...
-INFO | 2025-12-15 14:11:45+0100 : Configuring OpenBGPD in device `rs1_v4`...
-SUCCESS | 2025-12-15 14:11:45+0100 : Device `rs1_v4` created.
-INFO | 2025-12-15 14:11:45+0100 : Configuring OpenBGPD in device `rs1_v6`...
-SUCCESS | 2025-12-15 14:11:45+0100 : Device `rs1_v6` created.
-WARNING | 2025-12-15 14:11:45+0100 : No host interface specified! It is not possible to connect external peers!
-INFO | 2025-12-15 14:11:45+0100 : Lab built successfully, hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-15 14:11:45+0100 : Machines in lab: ['as42_0', 'as112_0', 'as137_0', 'as1267_0', 'rs1_v4', 'rs1_v6', 'switch']
-INFO | 2025-12-15 14:11:45+0100 : Lab built successfully. Hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-15 14:11:45+0100 : Machines in lab: ['as42_0', 'as112_0', 'as137_0', 'as1267_0', 'rs1_v4', 'rs1_v6', 'switch']
-INFO | 2025-12-15 14:11:45+0100 : =========================
-INFO | 2025-12-15 14:11:45+0100 : Deploying lab..
-INFO | 2025-12-15 14:11:45+0100 : Undeploying network scenario...
-SUCCESS | 2025-12-15 14:11:45+0100 : Network scenario undeployed!
-INFO | 2025-12-15 14:11:45+0100 : Deploying network scenario...
-INFO | 2025-12-15 14:11:48+0100 : Found 0 running containers
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device as42_0
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device as112_0
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device as137_0
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device as1267_0
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device rs1_v4
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device rs1_v6
-WARNING | 2025-12-15 14:11:48+0100 : Container not found for device switch
-INFO | 2025-12-15 14:11:52+0100 : Starting lab wipe...
-INFO | 2025-12-15 14:11:52+0100 : Cache cleared
-INFO | 2025-12-15 14:11:52+0100 : Wiping lab with hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-15 14:11:52+0100 : Executing Kathara wipe...
-INFO | 2025-12-15 14:11:52+0100 : Wipe started in background
-INFO | 2025-12-15 14:11:55+0100 : Kathara wipe completed
+INFO | 2025-12-19 15:35:46+0100 : Content of 'C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\logs\namex.log' has been reset.
+INFO | 2025-12-19 15:35:46+0100 : ================================================================================
+INFO | 2025-12-19 15:35:46+0100 : Starting LAB HOT-RELOAD
+INFO | 2025-12-19 15:35:46+0100 : ================================================================================
+INFO | 2025-12-19 15:35:46+0100 : Config filename: ixp_small.conf
+INFO | 2025-12-19 15:35:46+0100 : Loading config from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp_small.conf
+INFO | 2025-12-19 15:35:46+0100 : Peering configuration: {'type': 'ixp_manager', 'path': 'config_peerings.json'}
+INFO | 2025-12-19 15:35:46+0100 : Loaded 200 member entries
+INFO | 2025-12-19 15:35:46+0100 : Loading RIB dump (IPv4): C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4_small.dump
+INFO | 2025-12-19 15:35:46+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4_small.dump`...
+INFO | 2025-12-19 15:35:46+0100 : Loaded RIB dumps for 1 IP versions
+INFO | 2025-12-19 15:35:46+0100 : Limited table dump entries: 200 -> 5 (debug mode)
+INFO | 2025-12-19 15:35:46+0100 : Analyzing configuration changes...
+INFO | 2025-12-19 15:35:46+0100 : Fetching Kathara network scenario...
+INFO | 2025-12-19 15:35:47+0100 : Updating Kathara network scenario...
+INFO | 2025-12-19 15:35:47+0100 : Skipping device `as112_0` because it has no routes
+INFO | 2025-12-19 15:35:47+0100 : Skipping device `as112_1` because it has no routes
+INFO | 2025-12-19 15:35:47+0100 : Skipping device `as137_0` because it has no routes
+INFO | 2025-12-19 15:35:47+0100 : Skipping device `as1299_0` because it has no routes
+INFO | 2025-12-19 15:35:47+0100 : Skipping device `as42_0` because it has no routes
+INFO | 2025-12-19 15:35:47+0100 : Network scenario hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-19 15:35:47+0100 : Found 7 existing containers: {'as60501_0_iQnk9KyBDBJPmZROLT6Tw', 'as56911_0_iQnk9KyBDBJPmZROLT6Tw', 'rs1_v4_iQnk9KyBDBJPmZROLT6Tw', 'as1267_0_iQnk9KyBDBJPmZROLT6Tw', 'as15169_0_iQnk9KyBDBJPmZROLT6Tw', 'as6939_0_iQnk9KyBDBJPmZROLT6Tw', 'switch_iQnk9KyBDBJPmZROLT6Tw'}
+INFO | 2025-12-19 15:35:47+0100 : No new devices to deploy. Updating existing configurations only.
+INFO | 2025-12-19 15:35:47+0100 : Uploading Route Server configurations...
+INFO | 2025-12-19 15:35:47+0100 : Getting configuration information for device `rs1_v4`...
+INFO | 2025-12-19 15:35:47+0100 : Configuration information retrieved for device `rs1_v4`: ({'/etc/bgpd.conf': 'C:\\Users\\lele1\\Documents\\Kathara\\simple-file-manager-react\\simple-file-manager-react\\backend\\digital_twin\\resources\\rs1-rom-v4.conf'}, '/usr/sbin/bgpctl reload', <bound method OpenBgpdVendorDevice.config_has_errors of <digital_twin.ixp.configuration.rs.open_bgpd_vendor_device.OpenBgpdVendorDevice object at 0x0000018B7FDEE9E0>>)
+INFO | 2025-12-19 15:35:47+0100 : Copying {'/etc/bgpd.conf': 'C:\\Users\\lele1\\Documents\\Kathara\\simple-file-manager-react\\simple-file-manager-react\\backend\\digital_twin\\resources\\rs1-rom-v4.conf'} into device `rs1_v4`...
+INFO | 2025-12-19 15:36:00+0100 : Executing command `/usr/sbin/bgpctl reload` in device `rs1_v4`...
+INFO | 2025-12-19 15:36:05+0100 : `/usr/sbin/bgpctl reload` in device `rs1_v4` returned output:
+reload request sent.
+request processed
+
+INFO | 2025-12-19 15:36:05+0100 : Route Server configurations uploaded
+INFO | 2025-12-19 15:36:05+0100 : Uploading Peering configurations...
+WARNING | 2025-12-19 15:36:05+0100 : Skipping device `as42_0` since not in the network scenario...
+WARNING | 2025-12-19 15:36:05+0100 : Skipping device `as112_0` since not in the network scenario...
+WARNING | 2025-12-19 15:36:05+0100 : Skipping device `as112_1` since not in the network scenario...
+WARNING | 2025-12-19 15:36:05+0100 : Skipping device `as137_0` since not in the network scenario...
+INFO | 2025-12-19 15:36:05+0100 : Getting configuration information for device `as1267_0`...
+INFO | 2025-12-19 15:36:05+0100 : Configuration information retrieved for device `as1267_0`: ({'/etc/frr/bgpd.conf': <_io.StringIO object at 0x0000018B7FF55F00>}, 'systemctl restart frr', <function FrrScenarioConfigurationApplier.get_device_info.<locals>.<lambda> at 0x0000018B7FE41800>)
+WARNING | 2025-12-19 15:36:05+0100 : Skipping device `as1299_0` since not in the network scenario...
+INFO | 2025-12-19 15:36:05+0100 : Copying {'/etc/frr/bgpd.conf': <_io.StringIO object at 0x0000018B7FF55F00>} into device `as1267_0`...
+INFO | 2025-12-19 15:36:05+0100 : Executing command `systemctl restart frr` in device `as1267_0`...
+INFO | 2025-12-19 15:36:06+0100 : `systemctl restart frr` in device `as1267_0` returned output:
+None
+INFO | 2025-12-19 15:36:06+0100 : Peering configurations uploaded
+INFO | 2025-12-19 15:36:06+0100 : ================================================================================
+INFO | 2025-12-19 15:36:06+0100 : LAB HOT-RELOAD COMPLETED SUCCESSFULLY!
+INFO | 2025-12-19 15:36:06+0100 : Total machines in scenario: 7
+INFO | 2025-12-19 15:36:06+0100 : New machines deployed: 0
+INFO | 2025-12-19 15:36:06+0100 : Skipped existing machines: 0
+INFO | 2025-12-19 15:36:06+0100 : Lab hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-19 15:36:06+0100 : ================================================================================
+INFO | 2025-12-19 15:36:06+0100 : Lab reloaded successfully. New hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-19 15:36:06+0100 : Total machines: 7
+INFO | 2025-12-19 15:36:06+0100 : =========================
+INFO | 2025-12-19 15:36:07+0100 : Found 7 running containers
+INFO | 2025-12-19 15:36:07+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as56911_0_iQnk9KyBDBJPmZROLT6Tw by search for device as56911_0
+INFO | 2025-12-19 15:36:08+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as6939_0_iQnk9KyBDBJPmZROLT6Tw by search for device as6939_0
+INFO | 2025-12-19 15:36:10+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as60501_0_iQnk9KyBDBJPmZROLT6Tw by search for device as60501_0
+INFO | 2025-12-19 15:36:12+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as15169_0_iQnk9KyBDBJPmZROLT6Tw by search for device as15169_0
+INFO | 2025-12-19 15:36:14+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_as1267_0_iQnk9KyBDBJPmZROLT6Tw by search for device as1267_0
+INFO | 2025-12-19 15:36:16+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_rs1_v4_iQnk9KyBDBJPmZROLT6Tw by search for device rs1_v4
+INFO | 2025-12-19 15:36:18+0100 : Found container kathara_lele1-biiszkydq3tetmptpltlq_switch_iQnk9KyBDBJPmZROLT6Tw by search for device switch
+INFO | 2025-12-19 15:36:24+0100 : Starting lab wipe...
+INFO | 2025-12-19 15:36:24+0100 : Cache cleared
+INFO | 2025-12-19 15:36:24+0100 : Wiping lab with hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-19 15:36:24+0100 : Executing Kathara wipe...
+INFO | 2025-12-19 15:36:24+0100 : Wipe started in background
+INFO | 2025-12-19 15:36:27+0100 : Kathara wipe completed

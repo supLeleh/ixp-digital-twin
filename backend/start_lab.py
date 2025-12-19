@@ -11,9 +11,9 @@ from digital_twin.ixp.foundation.dumps.table_dump.table_dump_factory import Tabl
 from globals import BACKEND_RESOURCES_FOLDER, BACKEND_IXPCONFIGS_FOLDER
 from digital_twin.ixp.network_scenario.network_scenario_manager import NetworkScenarioManager
 from digital_twin.ixp.network_scenario.rs_manager import RouteServerManager
-from digital_twin.ixp.settings.settings import Settings
+from digital_twin.ixp.settings.settings import Settings, DEFAULT_SETTINGS_PATH
 from utils.dt_utils import load_settings_from_disk
-
+from digital_twin.ixp.globals import PATH_PREFIX
 
 def start_deploy(net_scenario_manager: NetworkScenarioManager):
     logging.info("Deploying lab..")
@@ -34,23 +34,62 @@ def build_lab(ixp_configs_filename: str):
     logging.info("Building lab..")
     logging.info(f"Config filename received: {ixp_configs_filename}")
     
-    # Get Settings singleton instance
-    settings: Settings = Settings.get_instance()
-    settings.load_from_disk()
-    logging.info(f"settings: {settings}")
-    
-    # ✅ CORRETTO - USA IL PARAMETRO RICEVUTO
     config_file_path = os.path.join(BACKEND_IXPCONFIGS_FOLDER, ixp_configs_filename)
     
-    logging.info(f"Loading config file from: {config_file_path}")
+    logging.info(f"Target config file: {config_file_path}")
     
-    # Verifica che il file esista
     if not os.path.exists(config_file_path):
         raise FileNotFoundError(f"Config file not found: {config_file_path}")
     
-    # Carica settings dal file specificato
-    load_settings_from_disk(settings, config_file_path)
-
+    # Import necessari
+    from digital_twin.ixp.settings import settings as settings_module
+    from digital_twin.ixp.settings.settings import Settings
+    
+    # Reset singleton se esiste
+    if hasattr(Settings, '_instance') and Settings._instance is not None:
+        logging.warning("Resetting existing Settings singleton...")
+        Settings._instance = None
+    
+    # Override del path
+    settings_module.DEFAULT_SETTINGS_PATH = config_file_path
+    logging.info(f"Overridden DEFAULT_SETTINGS_PATH: {config_file_path}")
+    
+    # Get instance e inizializza con valori di default
+    settings: Settings = Settings.get_instance()
+    
+    # ✅ Valori di default completi per la sezione quarantine
+    settings.quarantine = {
+        "actions": [
+            "connectivity.CheckPingAction",
+            "connectivity.CheckPingMtuAction",
+            "connectivity.CheckProxyArpAction",
+            "bgp.CheckBgpSessionAction",
+            "bgp.CheckBgpRibAction",
+            "security.CheckServicesAction",
+            "security.CheckTrafficAction"
+        ],
+        "proxy_arp_ips": ["8.8.8.8", "10.0.0.1", "192.168.0.1", "172.16.1.1"],
+        "max_rib_prefixes": {
+            "4": 5000,
+            "6": 5000
+        },
+        "traffic_dump_mins": 1,
+        "probe_ips": {
+            "4": "193.201.29.254",
+            "6": "2001:7f8:10:ffff:ffff:ffff:ffff:ffff"
+        },
+        "dns_name": "namex.it"
+    }
+    
+    # Carica dal disco (sovrascriverà solo i campi presenti nel file)
+    try:
+        settings.load_from_disk()
+        logging.info(f"Settings loaded successfully from: {config_file_path}")
+    except KeyError as e:
+        logging.warning(f"Optional configuration field missing: {e}, using defaults")
+    
+    logging.info(f"Quarantine config: {settings.quarantine}")
+    
     # Configura Kathara per usare Docker
     Setting.get_instance().load_from_dict({"manager_type": "docker"})
 
