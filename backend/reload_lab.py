@@ -8,7 +8,7 @@ from log import set_logging
 from digital_twin.ixp.configuration.frr_scenario_configuration_applier import FrrScenarioConfigurationApplier
 from digital_twin.ixp.foundation.dumps.member_dump.member_dump_factory import MemberDumpFactory
 from digital_twin.ixp.foundation.dumps.table_dump.table_dump_factory import TableDumpFactory
-from globals import BACKEND_RESOURCES_FOLDER, BACKEND_IXPCONFIGS_FOLDER, get_max_devices
+from globals import BACKEND_RESOURCES_FOLDER, BACKEND_IXPCONFIGS_FOLDER, get_max_devices, sync_resources_to_digital_twin
 from digital_twin.ixp.network_scenario.network_scenario_manager import NetworkScenarioManager
 from digital_twin.ixp.network_scenario.rs_manager import RouteServerManager
 from digital_twin.ixp.settings.settings import Settings
@@ -108,6 +108,16 @@ def reload_lab(ixp_configs_filename: str):
         net_scenario: Updated network scenario object
     """
     set_logging()
+    
+    # ✅ Sincronizza resources PRIMA di fare qualsiasi cosa
+    logging.info("=" * 80)
+    logging.info("🔄 SYNCING RESOURCES TO DIGITAL_TWIN")
+    logging.info("=" * 80)
+    
+    if not sync_resources_to_digital_twin():
+        error_msg = "Failed to sync resources to digital_twin. Cannot reload lab."
+        logging.error(f"❌ {error_msg}")
+        raise RuntimeError(error_msg)
     
     logging.info("=" * 80)
     logging.info("Starting LAB HOT-RELOAD")
