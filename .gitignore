@@ -1,4 +1,20 @@
 # ========================================
+# PROJECT SPECIFIC
+# ========================================
+
+# Backend files directory (user uploaded configs)
+backend/files/
+
+# IXP configuration files
+backend/ixpconfigs/
+
+# Backend resources
+backend/resources/
+
+# Backend settings (contains max_devices and other runtime configs)
+backend/settings.json
+
+# ========================================
 # REACT / NODE.JS
 # ========================================
 
