@@ -1,37 +1,34 @@
-INFO | 2025-12-20 13:31:22+0100 : Content of 'C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\logs\namex.log' has been reset.
-INFO | 2025-12-20 13:31:22+0100 : Building lab..
-INFO | 2025-12-20 13:31:22+0100 : Config filename received: ixp.conf
-INFO | 2025-12-20 13:31:22+0100 : Target config file: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp.conf
-INFO | 2025-12-20 13:31:22+0100 : Overridden DEFAULT_SETTINGS_PATH: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp.conf
-INFO | 2025-12-20 13:31:22+0100 : Settings loaded successfully from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp.conf
-INFO | 2025-12-20 13:31:22+0100 : Quarantine config: {'actions': ['connectivity.CheckPingAction', 'connectivity.CheckPingMtuAction', 'connectivity.CheckProxyArpAction', 'bgp.CheckBgpSessionAction', 'bgp.CheckBgpRibAction', 'security.CheckServicesAction', 'security.CheckTrafficAction'], 'proxy_arp_ips': ['8.8.8.8', '10.0.0.1', '192.168.0.1', '172.16.1.1'], 'max_rib_prefixes': {'4': 5000, '6': 5000}, 'traffic_dump_mins': 1, 'probe_ips': {'4': IPv4Address('193.201.29.254'), '6': IPv6Address('2001:7f8:10:ffff:ffff:ffff:ffff:ffff')}, 'dns_name': 'namex.it'}
-INFO | 2025-12-20 13:31:22+0100 : Peering configuration: {'type': 'ixp_manager', 'path': 'config_peerings.json'}
-INFO | 2025-12-20 13:31:22+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump
-INFO | 2025-12-20 13:31:22+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4.dump`...
-INFO | 2025-12-20 13:31:23+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump
-INFO | 2025-12-20 13:31:23+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v6.dump`...
-INFO | 2025-12-20 13:31:24+0100 : DEBUG: get_max_devices() returned: 1
-INFO | 2025-12-20 13:31:24+0100 : Creating Kathara network scenario...
-SUCCESS | 2025-12-20 13:31:24+0100 : Device `as42_0` created.
-INFO | 2025-12-20 13:31:24+0100 : Configuring FRR BGP in device `as42_0`...
-INFO | 2025-12-20 13:31:24+0100 : Configuring OpenBGPD in device `rs1_v4`...
-INFO | 2025-12-20 13:31:24+0100 : Kathara wipe completed
-SUCCESS | 2025-12-20 13:31:24+0100 : Device `rs1_v4` created.
-INFO | 2025-12-20 13:31:24+0100 : Configuring OpenBGPD in device `rs1_v6`...
-SUCCESS | 2025-12-20 13:31:24+0100 : Device `rs1_v6` created.
-WARNING | 2025-12-20 13:31:24+0100 : No host interface specified! It is not possible to connect external peers!
-INFO | 2025-12-20 13:31:24+0100 : Lab built successfully, hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-20 13:31:24+0100 : Machines in lab: ['as42_0', 'rs1_v4', 'rs1_v6', 'switch']
-INFO | 2025-12-20 13:31:24+0100 : Lab built successfully. Hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-20 13:31:24+0100 : Machines in lab: ['as42_0', 'rs1_v4', 'rs1_v6', 'switch']
-INFO | 2025-12-20 13:31:24+0100 : =========================
-INFO | 2025-12-20 13:31:24+0100 : Deploying lab..
-INFO | 2025-12-20 13:31:24+0100 : Undeploying network scenario...
-SUCCESS | 2025-12-20 13:31:24+0100 : Network scenario undeployed!
-INFO | 2025-12-20 13:31:24+0100 : Deploying network scenario...
-INFO | 2025-12-20 13:31:28+0100 : Starting lab wipe...
-INFO | 2025-12-20 13:31:28+0100 : Cache cleared
-INFO | 2025-12-20 13:31:28+0100 : Wiping lab with hash: iQnk9KyBDBJPmZROLT6Tw
-INFO | 2025-12-20 13:31:28+0100 : Executing Kathara wipe...
-INFO | 2025-12-20 13:31:28+0100 : Wipe started in background
-INFO | 2025-12-20 13:31:28+0100 : Kathara wipe completed
+INFO | 2025-12-20 13:44:52+0100 : Content of 'C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\logs\namex.log' has been reset.
+INFO | 2025-12-20 13:44:52+0100 : Building lab..
+INFO | 2025-12-20 13:44:52+0100 : Config filename received: ixp_small.conf
+INFO | 2025-12-20 13:44:53+0100 : Target config file: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp_small.conf
+INFO | 2025-12-20 13:44:53+0100 : Overridden DEFAULT_SETTINGS_PATH: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp_small.conf
+INFO | 2025-12-20 13:44:53+0100 : Settings loaded successfully from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\ixpconfigs\ixp_small.conf
+INFO | 2025-12-20 13:44:53+0100 : Quarantine config: {'actions': ['connectivity.CheckPingAction', 'connectivity.CheckPingMtuAction', 'connectivity.CheckProxyArpAction', 'bgp.CheckBgpSessionAction', 'bgp.CheckBgpRibAction', 'security.CheckServicesAction', 'security.CheckTrafficAction'], 'proxy_arp_ips': ['8.8.8.8', '10.0.0.1', '192.168.0.1', '172.16.1.1'], 'max_rib_prefixes': {'4': 5000, '6': 5000}, 'traffic_dump_mins': 1, 'probe_ips': {'4': IPv4Address('193.201.29.254'), '6': IPv6Address('2001:7f8:10:ffff:ffff:ffff:ffff:ffff')}, 'dns_name': 'namex.it'}
+INFO | 2025-12-20 13:44:53+0100 : Peering configuration: {'type': 'ixp_manager', 'path': 'config_peerings.json'}
+INFO | 2025-12-20 13:44:53+0100 : Loading RIB dump from: C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4_small.dump
+INFO | 2025-12-20 13:44:53+0100 : Loading Dump in `C:\Users\lele1\Documents\Kathara\simple-file-manager-react\simple-file-manager-react\backend\resources\rib_v4_small.dump`...
+INFO | 2025-12-20 13:44:53+0100 : DEBUG: get_max_devices() returned: 1
+INFO | 2025-12-20 13:44:53+0100 : Creating Kathara network scenario...
+INFO | 2025-12-20 13:44:53+0100 : Skipping device `as42_0` because it has no routes
+INFO | 2025-12-20 13:44:53+0100 : Configuring OpenBGPD in device `rs1_v4`...
+SUCCESS | 2025-12-20 13:44:53+0100 : Device `rs1_v4` created.
+WARNING | 2025-12-20 13:44:53+0100 : No host interface specified! It is not possible to connect external peers!
+INFO | 2025-12-20 13:44:53+0100 : Lab built successfully, hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-20 13:44:53+0100 : Machines in lab: ['rs1_v4', 'switch']
+INFO | 2025-12-20 13:44:53+0100 : Lab built successfully. Hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-20 13:44:53+0100 : Machines in lab: ['rs1_v4', 'switch']
+INFO | 2025-12-20 13:44:53+0100 : =========================
+INFO | 2025-12-20 13:44:53+0100 : Deploying lab..
+INFO | 2025-12-20 13:44:53+0100 : Undeploying network scenario...
+SUCCESS | 2025-12-20 13:44:53+0100 : Network scenario undeployed!
+INFO | 2025-12-20 13:44:53+0100 : Deploying network scenario...
+INFO | 2025-12-20 13:45:00+0100 : Found 0 running containers
+WARNING | 2025-12-20 13:45:00+0100 : Container not found for device rs1_v4
+WARNING | 2025-12-20 13:45:00+0100 : Container not found for device switch
+INFO | 2025-12-20 13:45:01+0100 : Starting lab wipe...
+INFO | 2025-12-20 13:45:01+0100 : Cache cleared
+INFO | 2025-12-20 13:45:01+0100 : Wiping lab with hash: iQnk9KyBDBJPmZROLT6Tw
+INFO | 2025-12-20 13:45:01+0100 : Executing Kathara wipe...
+INFO | 2025-12-20 13:45:01+0100 : Wipe started in background
+INFO | 2025-12-20 13:45:02+0100 : Kathara wipe completed

@@ -14,6 +14,8 @@ backend/resources/
 # Backend settings (contains max_devices and other runtime configs)
 backend/settings.json
 
+backend/logs
+
 # ========================================
 # REACT / NODE.JS
 # ========================================
