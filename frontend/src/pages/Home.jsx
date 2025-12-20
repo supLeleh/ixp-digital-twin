@@ -18,6 +18,16 @@ const Home = () => {
         return saved ? parseInt(saved) : 10;
     });
 
+    // Stato per MAX_DEVICES (empty = unlimited)
+    const [maxDevices, setMaxDevices] = useState(() => {
+        const saved = localStorage.getItem('maxDevices');
+        if (!saved || saved === 'null' || saved === '0' || saved === '') {
+            return '';  // Empty = unlimited
+        }
+        const num = parseInt(saved);
+        return isNaN(num) ? '' : num;
+    });
+
     // Stati per Run Command
     const [showCommandModal, setShowCommandModal] = useState(false);
     const [selectedDevice, setSelectedDevice] = useState('');
@@ -109,9 +119,83 @@ const Home = () => {
         }
     };
 
+    // Fetch MAX_DEVICES from backend
+    const fetchMaxDevices = async () => {
+        try {
+            const res = await fetch(`${API_BASE}/settings/max-devices`);
+            if (!res.ok) return;
+            const data = await res.json();
+
+            // ✅ null o 0 → empty (unlimited)
+            const value = (data.max_devices === null || data.max_devices === 0) ? '' : data.max_devices;
+
+            setMaxDevices(value);
+            localStorage.setItem('maxDevices', value.toString());
+        } catch (e) {
+            console.error('Error loading max_devices:', e);
+        }
+    };
+
+
+    // Update MAX_DEVICES on backend
+    const handleMaxDevicesChange = async (value) => {
+        // ✅ Gestione robusta dell'input
+        const trimmedValue = value.trim();
+        let apiValue;
+        let displayValue;
+
+        if (trimmedValue === '' || trimmedValue === 'NaN') {
+            // Campo vuoto → unlimited (null)
+            apiValue = null;
+            displayValue = '';
+            console.log("🔧 Setting MAX_DEVICES to: unlimited (empty field)");
+        } else {
+            const numValue = parseInt(trimmedValue, 10);
+
+            if (isNaN(numValue) || numValue < 0) {
+                // Valore invalido → reset a vuoto (unlimited)
+                apiValue = null;
+                displayValue = '';
+                console.log("🔧 Invalid value, setting to unlimited");
+            } else if (numValue === 0) {
+                // 0 → illimitato
+                apiValue = null;
+                displayValue = '';  // ✅ Mostra campo vuoto invece di 0
+                console.log("🔧 Setting MAX_DEVICES to: unlimited (0)");
+            } else {
+                // Valore valido positivo
+                apiValue = numValue;
+                displayValue = numValue;
+                console.log("🔧 Setting MAX_DEVICES to:", numValue);
+            }
+        }
+
+        try {
+            const res = await fetch(`${API_BASE}/settings/max-devices`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ max_devices: apiValue })  // ✅ Invia null o numero
+            });
+
+            if (res.ok) {
+                console.log("✅ MAX_DEVICES saved successfully");
+                setMaxDevices(displayValue);
+                localStorage.setItem('maxDevices', displayValue === '' ? '' : displayValue.toString());
+            } else {
+                const errorData = await res.json();
+                console.error("❌ Failed to save MAX_DEVICES:", errorData);
+            }
+        } catch (e) {
+            console.error('Error updating max_devices:', e);
+        }
+    };
+
+
+
     useEffect(() => {
         fetchConfigFiles();
         fetchLabStatus();
+        fetchMaxDevices();
         pollingRef.current = setInterval(fetchLabStatus, 10000);
 
         return () => {
@@ -600,7 +684,7 @@ const Home = () => {
                 </Card.Header>
                 <Card.Body className="p-4">
                     <Row className="align-items-center mb-4">
-                        <Col md={4}>
+                        <Col md={3}>
                             <Form.Group>
                                 <Form.Label style={{ fontWeight: 600, color: '#495057', marginBottom: '0.5rem' }}>
                                     Configuration File
@@ -621,7 +705,36 @@ const Home = () => {
                                 </Form.Select>
                             </Form.Group>
                         </Col>
-                        <Col md={8} className="text-center">
+
+                        {/* Max Devices Control */}
+                        <Col md={3}>
+                            <Form.Group>
+                                <Form.Label style={{ fontWeight: 600, color: '#495057', marginBottom: '0.5rem' }}>
+                                    Max Devices (empty = unlimited)
+                                </Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="unlimited"
+                                    value={maxDevices === '' || maxDevices === 0 || maxDevices === '0' ? '' : maxDevices}
+                                    onChange={(e) => handleMaxDevicesChange(e.target.value)}
+                                    disabled={labStatus !== 'stopped'}
+                                    style={{
+                                        borderRadius: '6px',
+                                        border: '1px solid #ced4da',
+                                        padding: '0.6rem',
+                                        textAlign: 'center',
+                                        fontWeight: 600
+                                    }}
+                                />
+                                <Form.Text className="text-muted">
+                                    {!maxDevices || maxDevices === '' || maxDevices === 0 || maxDevices === '0'
+                                        ? '∞ Unlimited devices'
+                                        : `Limited to ${maxDevices} devices`}
+                                </Form.Text>
+                            </Form.Group>
+                        </Col>
+
+                        <Col md={6} className="text-center">
                             <div style={{
                                 width: '100px',
                                 height: '100px',
@@ -635,12 +748,12 @@ const Home = () => {
                                             ? 'linear-gradient(135deg, #17a2b8 0%, #138496 100%)'
                                             : 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)',
                                 border: `3px solid ${labStatus === 'running'
-                                        ? '#28a745'
-                                        : labStatus === 'stopped'
-                                            ? '#9e9e9e'
-                                            : labStatus === 'reloading'
-                                                ? '#17a2b8'
-                                                : '#ffc107'
+                                    ? '#28a745'
+                                    : labStatus === 'stopped'
+                                        ? '#9e9e9e'
+                                        : labStatus === 'reloading'
+                                            ? '#17a2b8'
+                                            : '#ffc107'
                                     }`,
                                 display: 'flex',
                                 alignItems: 'center',

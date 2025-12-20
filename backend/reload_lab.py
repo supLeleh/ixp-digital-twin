@@ -8,7 +8,7 @@ from log import set_logging
 from digital_twin.ixp.configuration.frr_scenario_configuration_applier import FrrScenarioConfigurationApplier
 from digital_twin.ixp.foundation.dumps.member_dump.member_dump_factory import MemberDumpFactory
 from digital_twin.ixp.foundation.dumps.table_dump.table_dump_factory import TableDumpFactory
-from globals import BACKEND_RESOURCES_FOLDER, BACKEND_IXPCONFIGS_FOLDER
+from globals import BACKEND_RESOURCES_FOLDER, BACKEND_IXPCONFIGS_FOLDER, get_max_devices
 from digital_twin.ixp.network_scenario.network_scenario_manager import NetworkScenarioManager
 from digital_twin.ixp.network_scenario.rs_manager import RouteServerManager
 from digital_twin.ixp.settings.settings import Settings
@@ -162,10 +162,16 @@ def reload_lab(ixp_configs_filename: str):
         logging.error(f"Failed to load RIB dumps: {e}")
         raise
     
-    # Limit entries for debug/performance
-    original_count = len(table_dump.entries)
-    table_dump.entries = dict(list(table_dump.entries.items())[0:5])
-    logging.info(f"Limited table dump entries: {original_count} -> {len(table_dump.entries)} (debug mode)")
+    # Limit entries based on MAX_DEVICES configuration (read fresh value)
+    max_devices = get_max_devices()
+    logging.info(f"DEBUG: get_max_devices() returned: {max_devices}")
+
+    if max_devices is not None and max_devices > 0:
+        original_count = len(table_dump.entries)
+        table_dump.entries = dict(list(table_dump.entries.items())[0:max_devices])
+        logging.info(f"✅ Limited devices: {original_count} -> {max_devices} (MAX_DEVICES)")
+    else:
+        logging.info(f"No device limit applied (total: {len(table_dump.entries)} devices)")
     
     # Initialize managers
     net_scenario_manager = NetworkScenarioManager()

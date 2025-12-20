@@ -1,7 +1,11 @@
 import logging
+import json
+import os
 from typing import Annotated
 from threading import Thread
 
+from pydantic import BaseModel
+from globals import SETTINGS_FILE, get_max_devices
 from fastapi.responses import JSONResponse
 from utils.responses import *
 from Kathara.manager.Kathara import Kathara
@@ -26,8 +30,17 @@ from utils.docker_utils import (
     find_container_by_name,
 )
 
+
 router = APIRouter(prefix="/ixp", tags=["IXP Lab Execution"])
 
+
+# ==================== MODELS ====================
+
+class MaxDevicesModel(BaseModel):
+    max_devices: int | None = None
+
+
+# ==================== STARTUP ====================
 
 def startup():
     found_lab_hash = discover_running_lab()
@@ -50,6 +63,73 @@ def startup():
         f"Machines: {ServerContext.get_total_machines().keys() if ServerContext.get_lab() else 'None'}"
     )
 
+
+# ==================== SETTINGS ENDPOINTS ====================
+
+@router.get("/settings/max-devices", status_code=status.HTTP_200_OK)
+async def get_max_devices_endpoint():
+    """
+    Get current MAX_DEVICES limit configuration
+    """
+    try:
+        max_devices = get_max_devices()
+        logging.info(f"DEBUG: GET max_devices = {max_devices}")
+        
+        return JSONResponse(
+            content={"max_devices": max_devices, "unlimited": max_devices is None}
+        )
+    except Exception as e:
+        logging.error(f"Error reading max_devices: {e}")
+        return JSONResponse(content={"max_devices": None, "unlimited": True})
+
+
+@router.put("/settings/max-devices", status_code=status.HTTP_200_OK)
+async def set_max_devices(data: MaxDevicesModel, response: Response):
+    """
+    Set MAX_DEVICES limit
+    - Set to None for unlimited devices
+    - Set to positive integer to limit number of devices
+    """
+    try:
+        max_devices = data.max_devices
+        
+        # Validazione
+        if max_devices is not None and max_devices < 1:
+            return error_4xx(
+                response,
+                status.HTTP_400_BAD_REQUEST,
+                message="max_devices must be positive or null for unlimited",
+            )
+
+        # Salva su file per persistenza
+        os.makedirs(os.path.dirname(SETTINGS_FILE), exist_ok=True)
+
+        settings_data = {}
+        if os.path.exists(SETTINGS_FILE):
+            try:
+                with open(SETTINGS_FILE, "r") as f:
+                    settings_data = json.load(f)
+            except:
+                settings_data = {}
+
+        settings_data["max_devices"] = max_devices
+
+        with open(SETTINGS_FILE, "w") as f:
+            json.dump(settings_data, f, indent=2)
+
+        logging.info(f"✅ MAX_DEVICES updated to: {max_devices}")
+        logging.info(f"✅ File saved: {SETTINGS_FILE}")
+
+        return success_2xx(
+            message=f"MAX_DEVICES set to {'unlimited' if max_devices is None else max_devices}"
+        )
+
+    except Exception as e:
+        logging.error(f"Error setting max_devices: {e}")
+        return error_5xx(response, message=f"Error setting max_devices: {str(e)}")
+
+
+# ==================== LAB EXECUTION ENDPOINTS ====================
 
 @router.post("/start", status_code=status.HTTP_201_CREATED)
 async def run_namex_lab(ixp_file: ConfigFileModel, response: Response):
@@ -129,7 +209,6 @@ async def wipe_namex_lab(response: Response):
         logging.info(f"Wiping lab with hash: {lab_hash}")
 
         # Pulisci subito il context per rendere il lab "stopped" nell'interfaccia
-        lab_to_wipe = ServerContext.get_lab()
         ServerContext.set_lab(None)
         ServerContext.set_is_lab_discovered(None)
         ServerContext.set_ixpconf_filename(None)
@@ -155,13 +234,10 @@ async def wipe_namex_lab(response: Response):
 
     except Exception as e:
         logging.error(f"Error during wipe: {e}")
-        import traceback
-
         logging.error(traceback.format_exc())
         return error_5xx(response, message=f"Error wiping lab: {str(e)}")
 
 
-# ✅ CORRETTO: Rinominato endpoint e usa ServerContext
 @router.post("/reload", status_code=status.HTTP_200_OK)
 async def reload_lab_endpoint(ixp_file: ConfigFileModel, response: Response):
     """
@@ -169,7 +245,6 @@ async def reload_lab_endpoint(ixp_file: ConfigFileModel, response: Response):
     Only redeploys changed devices and updates configurations.
     """
     try:
-        # ✅ Usa ServerContext invece di app.running_instance_hash
         if not ServerContext.get_lab():
             return error_4xx(
                 response,
@@ -187,7 +262,7 @@ async def reload_lab_endpoint(ixp_file: ConfigFileModel, response: Response):
         # Execute hot-reload
         net_scenario = reload_lab(filename)
 
-        # ✅ Aggiorna ServerContext
+        # Aggiorna ServerContext
         ServerContext.set_lab(net_scenario)
         ServerContext.set_ixpconf_filename(filename)
         ServerContext.set_total_machines(net_scenario.machines)
@@ -211,7 +286,6 @@ async def reload_lab_endpoint(ixp_file: ConfigFileModel, response: Response):
         return error_5xx(response, message=f"Failed to reload lab: {str(e)}")
 
 
-# ✅ NOTA: Questo endpoint esisteva già, lo lascio com'è
 @router.post("/hot_reload", status_code=status.HTTP_200_OK)
 async def hot_reload_namex_lab(lab: BodyLab, response: Response):
     """
@@ -262,6 +336,8 @@ async def execute_command_on_rs(
         return error_5xx(response, message=f"Error executing command: {str(e)}")
 
 
+# ==================== HELPER FUNCTIONS ====================
+
 def calculate_cpu_percent(stats, machine_name):
     """
     Calcola la percentuale CPU in modo robusto con validazione e normalizzazione.
@@ -306,8 +382,7 @@ def calculate_cpu_percent(stats, machine_name):
             )
             cpu_percent = 0.0
         else:
-            # Normalizza per singolo core (opzionale, dipende da come vuoi mostrare)
-            # Se vuoi mostrare % totale su tutti i core, commenta questa riga
+            # Normalizza per singolo core
             cpu_percent = min(cpu_percent / cpu_count, 100.0)
 
         return round(cpu_percent, 2)
@@ -388,6 +463,8 @@ def calculate_uptime(container, machine_name):
         logging.warning(f"Error calculating uptime for {machine_name}: {e}")
         return "N/A"
 
+
+# ==================== DEVICES ENDPOINT ====================
 
 @router.get("/devices", status_code=status.HTTP_200_OK)
 async def get_lab_devices(response: Response):
@@ -508,11 +585,5 @@ async def get_lab_devices(response: Response):
 
     except Exception as e:
         logging.error(f"Error getting devices: {e}")
-        return error_5xx(response, message=f"Error getting devices: {str(e)}")
-
-    except Exception as e:
-        logging.error(f"Error connecting to Docker: {e}")
         logging.error(traceback.format_exc())
-        return error_5xx(response, message=f"Error retrieving device stats: {str(e)}")
-
-    return success_2xx(key_mess="devices", message=devices_info)
+        return error_5xx(response, message=f"Error getting devices: {str(e)}")
