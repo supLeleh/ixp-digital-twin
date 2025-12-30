@@ -683,10 +683,15 @@ const Home = () => {
                     {getStatusBadge()}
                 </Card.Header>
                 <Card.Body className="p-4">
-                    <Row className="align-items-center mb-4">
+                    <Row className="align-items-start mb-4">
+                        {/* Configuration File Selector */}
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label style={{ fontWeight: 600, color: '#495057', marginBottom: '0.5rem' }}>
+                                <Form.Label style={{
+                                    fontWeight: 600,
+                                    color: '#495057',
+                                    marginBottom: '0.5rem'
+                                }}>
                                     Configuration File
                                 </Form.Label>
                                 <Form.Select
@@ -703,14 +708,26 @@ const Home = () => {
                                         <option key={file} value={file}>{file}</option>
                                     ))}
                                 </Form.Select>
+                                <Form.Text className="text-muted" style={{
+                                    fontSize: '0.85rem',
+                                    display: 'block',
+                                    marginTop: '0.25rem',
+                                    minHeight: '20px'
+                                }}>
+                                    IXP configuration file
+                                </Form.Text>
                             </Form.Group>
                         </Col>
 
                         {/* Max Devices Control */}
                         <Col md={3}>
                             <Form.Group>
-                                <Form.Label style={{ fontWeight: 600, color: '#495057', marginBottom: '0.5rem' }}>
-                                    Max Devices (empty = unlimited)
+                                <Form.Label style={{
+                                    fontWeight: 600,
+                                    color: '#495057',
+                                    marginBottom: '0.5rem'
+                                }}>
+                                    Max Devices
                                 </Form.Label>
                                 <Form.Control
                                     type="text"
@@ -726,7 +743,12 @@ const Home = () => {
                                         fontWeight: 600
                                     }}
                                 />
-                                <Form.Text className="text-muted">
+                                <Form.Text className="text-muted" style={{
+                                    fontSize: '0.85rem',
+                                    display: 'block',
+                                    marginTop: '0.25rem',
+                                    minHeight: '20px'
+                                }}>
                                     {!maxDevices || maxDevices === '' || maxDevices === 0 || maxDevices === '0'
                                         ? '∞ Unlimited devices'
                                         : `Limited to ${maxDevices} devices`}
@@ -734,414 +756,417 @@ const Home = () => {
                             </Form.Group>
                         </Col>
 
-                        <Col md={6} className="text-center">
-                            <div style={{
-                                width: '100px',
-                                height: '100px',
-                                margin: '0 auto 1rem',
-                                borderRadius: '50%',
-                                background: labStatus === 'running'
-                                    ? 'linear-gradient(135deg, #28a745 0%, #20c997 100%)'
-                                    : labStatus === 'stopped'
-                                        ? '#f5f5f5'
-                                        : labStatus === 'reloading'
-                                            ? 'linear-gradient(135deg, #17a2b8 0%, #138496 100%)'
-                                            : 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)',
-                                border: `3px solid ${labStatus === 'running'
-                                    ? '#28a745'
-                                    : labStatus === 'stopped'
-                                        ? '#9e9e9e'
-                                        : labStatus === 'reloading'
-                                            ? '#17a2b8'
-                                            : '#ffc107'
-                                    }`,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '2.5rem',
-                                boxShadow: labStatus === 'running'
-                                    ? '0 4px 12px rgba(40, 167, 69, 0.3)'
-                                    : labStatus === 'stopped'
-                                        ? '0 2px 8px rgba(0,0,0,0.1)'
-                                        : labStatus === 'reloading'
-                                            ? '0 4px 12px rgba(23, 162, 184, 0.3)'
-                                            : '0 4px 12px rgba(255, 193, 7, 0.3)',
-                                transition: 'all 0.3s ease'
-                            }}>
-                                {labStatus === 'running' && '▶️'}
-                                {labStatus === 'stopped' && '⏹️'}
-                                {(labStatus === 'starting' || labStatus === 'stopping' || labStatus === 'reloading') && (
-                                    <Spinner animation="border" variant="light" />
-                                )}
-                            </div>
 
-                            <div className="d-flex gap-3 justify-content-center">
-                                <Button
-                                    variant="success"
-                                    size="lg"
-                                    onClick={handleStart}
-                                    disabled={labStatus !== 'stopped'}
-                                    style={{
-                                        minWidth: '140px',
-                                        fontWeight: 600,
-                                        borderRadius: '6px',
-                                        padding: '0.75rem 1.5rem',
-                                        background: '#28a745',
-                                        border: 'none'
-                                    }}
-                                >
-                                    Start Lab
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    size="lg"
-                                    onClick={handleStop}
-                                    disabled={labStatus === 'stopped' || labStatus === 'reloading'}
-                                    style={{
-                                        minWidth: '140px',
-                                        fontWeight: 600,
-                                        borderRadius: '6px',
-                                        padding: '0.75rem 1.5rem',
-                                        background: '#dc3545',
-                                        border: 'none'
-                                    }}
-                                >
-                                    Stop Lab
-                                </Button>
-                            </div>
-
-                            {labStatus === 'running' && (
-                                <div className="mt-3 d-flex gap-2 justify-content-center">
-                                    <Button
-                                        variant="primary"
-                                        onClick={handleOpenCommandModal}
-                                        disabled={labStatus === 'reloading'}
-                                        style={{
-                                            minWidth: '150px',
-                                            fontWeight: 600,
-                                            borderRadius: '6px',
-                                            padding: '0.5rem 1rem',
-                                            background: '#007bff',
-                                            border: 'none'
-                                        }}
-                                    >
-                                        ⚡ Run Command
-                                    </Button>
-                                    <Button
-                                        variant="info"
-                                        onClick={handleOpenRibDiffModal}
-                                        disabled={getRouteServers().length === 0 || labStatus === 'reloading'}
-                                        style={{
-                                            minWidth: '150px',
-                                            fontWeight: 600,
-                                            borderRadius: '6px',
-                                            padding: '0.5rem 1rem',
-                                            background: '#17a2b8',
-                                            border: 'none',
-                                            color: '#ffffff'
-                                        }}
-                                    >
-                                        📊 RIB Diff
-                                    </Button>
-                                    <Button
-                                        variant="warning"
-                                        onClick={handleReloadLab}
-                                        disabled={labStatus === 'reloading'}
-                                        style={{
-                                            minWidth: '150px',
-                                            fontWeight: 600,
-                                            borderRadius: '6px',
-                                            padding: '0.5rem 1rem',
-                                            background: '#ffc107',
-                                            border: 'none',
-                                            color: '#212529'
-                                        }}
-                                    >
-                                        {labStatus === 'reloading' ? (
-                                            <>
-                                                <Spinner animation="border" size="sm" className="me-2" />
-                                                Reloading...
-                                            </>
-                                        ) : (
-                                            '🔄 Reload Config'
-                                        )}
-                                    </Button>
-                                </div>
+                    <Col md={6} className="text-center">
+                        <div style={{
+                            width: '100px',
+                            height: '100px',
+                            margin: '0 auto 1rem',
+                            borderRadius: '50%',
+                            background: labStatus === 'running'
+                                ? 'linear-gradient(135deg, #28a745 0%, #20c997 100%)'
+                                : labStatus === 'stopped'
+                                    ? '#f5f5f5'
+                                    : labStatus === 'reloading'
+                                        ? 'linear-gradient(135deg, #17a2b8 0%, #138496 100%)'
+                                        : 'linear-gradient(135deg, #ffc107 0%, #ff9800 100%)',
+                            border: `3px solid ${labStatus === 'running'
+                                ? '#28a745'
+                                : labStatus === 'stopped'
+                                    ? '#9e9e9e'
+                                    : labStatus === 'reloading'
+                                        ? '#17a2b8'
+                                        : '#ffc107'
+                                }`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '2.5rem',
+                            boxShadow: labStatus === 'running'
+                                ? '0 4px 12px rgba(40, 167, 69, 0.3)'
+                                : labStatus === 'stopped'
+                                    ? '0 2px 8px rgba(0,0,0,0.1)'
+                                    : labStatus === 'reloading'
+                                        ? '0 4px 12px rgba(23, 162, 184, 0.3)'
+                                        : '0 4px 12px rgba(255, 193, 7, 0.3)',
+                            transition: 'all 0.3s ease'
+                        }}>
+                            {labStatus === 'running' && '▶️'}
+                            {labStatus === 'stopped' && '⏹️'}
+                            {(labStatus === 'starting' || labStatus === 'stopping' || labStatus === 'reloading') && (
+                                <Spinner animation="border" variant="light" />
                             )}
-                        </Col>
-                    </Row>
-
-                    <div className="mt-3 pt-3" style={{ borderTop: '1px solid #dee2e6' }}>
-                        <Row>
-                            <Col md={12} className="text-center">
-                                <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: 0 }}>
-                                    {labStatus === 'stopped' && '💡 Lab is ready to start. Select a configuration file and press Start.'}
-                                    {labStatus === 'starting' && 'Initializing containers and network configuration...'}
-                                    {labStatus === 'running' && 'Lab is operational. All services are active.'}
-                                    {labStatus === 'stopping' && 'Terminating processes and cleaning resources...'}
-                                    {labStatus === 'reloading' && '🔄 Updating configurations and restarting services...'}
-                                </p>
-                            </Col>
-                        </Row>
-                    </div>
-                </Card.Body>
-            </Card>
-
-            {/* Devices and Statistics Card */}
-            {labStatus === 'running' && (
-                <Card style={{
-                    background: '#ffffff',
-                    border: '1px solid #dee2e6',
-                    borderRadius: '8px'
-                }}>
-                    <Card.Header style={{
-                        background: '#f8f9fa',
-                        borderBottom: '1px solid #dee2e6',
-                        padding: '1rem 1.5rem',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
-                        <h5 style={{ marginBottom: 0, fontWeight: 600, color: '#212529' }}>
-                            Lab Devices ({devices.length})
-                        </h5>
-
-                        <div className="d-flex align-items-center gap-3">
-                            <InputGroup size="sm" style={{ maxWidth: '150px' }}>
-                                <InputGroup.Text>Refresh</InputGroup.Text>
-                                <Form.Control
-                                    type="number"
-                                    min="1"
-                                    max="300"
-                                    value={pollingInterval}
-                                    onChange={(e) => handlePollingIntervalChange(e.target.value)}
-                                    disabled={!statsPollingEnabled}
-                                    className="text-center"
-                                    style={{ fontWeight: 600 }}
-                                />
-                                <InputGroup.Text>sec</InputGroup.Text>
-                            </InputGroup>
-
-                            <Form.Check
-                                type="switch"
-                                id="stats-polling-switch"
-                                label={
-                                    <span style={{ color: '#495057', fontWeight: 500 }}>
-                                        Auto-refresh
-                                        {statsPollingEnabled && (
-                                            <Spinner animation="grow" size="sm" className="ms-2" variant="primary" />
-                                        )}
-                                    </span>
-                                }
-                                checked={statsPollingEnabled}
-                                onChange={(e) => setStatsPollingEnabled(e.target.checked)}
-                                style={{ fontSize: '0.95rem' }}
-                            />
                         </div>
-                    </Card.Header>
-                    <Card.Body style={{ padding: 0 }}>
-                        {devices.length === 0 ? (
-                            <div className="text-center p-5" style={{ color: '#6c757d' }}>
-                                <Spinner animation="border" size="sm" className="me-2" />
-                                Loading devices...
-                            </div>
-                        ) : (
-                            <div className="p-3">
-                                {devices.map((device, idx) => (
-                                    <Card key={idx} className="mb-3" style={{
-                                        border: '1px solid #dee2e6',
-                                        borderRadius: '6px'
-                                    }}>
-                                        <Card.Body className="p-3">
-                                            <Row className="align-items-center mb-3">
-                                                <Col md={6}>
-                                                    <h6 style={{ marginBottom: '0.5rem', fontWeight: 600, color: '#212529' }}>
-                                                        {device.name}
-                                                    </h6>
-                                                    <div>
-                                                        {getDeviceStatusBadge(device.status)}
-                                                        <Badge bg="info" className="ms-2">
-                                                            {device.interfaces} interfaces
-                                                        </Badge>
-                                                        <small className="ms-2 text-muted">Uptime: {device.uptime}</small>
-                                                    </div>
-                                                </Col>
-                                                <Col md={6} className="text-md-end">
-                                                    <small className="text-muted" style={{ fontWeight: 500 }}>
-                                                        RX: {device.network_rx_mb} MB | TX: {device.network_tx_mb} MB
-                                                    </small>
-                                                </Col>
-                                            </Row>
 
-                                            <Row>
-                                                <Col md={6} className="mb-2">
-                                                    <div className="d-flex justify-content-between mb-1">
-                                                        <small style={{ fontWeight: 600, color: '#495057' }}>CPU</small>
-                                                        <small style={{ fontWeight: 600, color: '#212529' }}>{device.cpu_percent}%</small>
-                                                    </div>
-                                                    <ProgressBar
-                                                        now={device.cpu_percent}
-                                                        variant={getProgressVariant(device.cpu_percent)}
-                                                        style={{ height: '8px' }}
-                                                    />
-                                                </Col>
-                                                <Col md={6} className="mb-2">
-                                                    <div className="d-flex justify-content-between mb-1">
-                                                        <small style={{ fontWeight: 600, color: '#495057' }}>Memory</small>
-                                                        <small style={{ fontWeight: 600, color: '#212529' }}>{device.memory_percent}%</small>
-                                                    </div>
-                                                    <ProgressBar
-                                                        now={device.memory_percent}
-                                                        variant={getProgressVariant(device.memory_percent)}
-                                                        style={{ height: '8px' }}
-                                                    />
-                                                </Col>
-                                            </Row>
-                                        </Card.Body>
-                                    </Card>
-                                ))}
+                        <div className="d-flex gap-3 justify-content-center">
+                            <Button
+                                variant="success"
+                                size="lg"
+                                onClick={handleStart}
+                                disabled={labStatus !== 'stopped'}
+                                style={{
+                                    minWidth: '140px',
+                                    fontWeight: 600,
+                                    borderRadius: '6px',
+                                    padding: '0.75rem 1.5rem',
+                                    background: '#28a745',
+                                    border: 'none'
+                                }}
+                            >
+                                Start Lab
+                            </Button>
+                            <Button
+                                variant="danger"
+                                size="lg"
+                                onClick={handleStop}
+                                disabled={labStatus === 'stopped' || labStatus === 'reloading'}
+                                style={{
+                                    minWidth: '140px',
+                                    fontWeight: 600,
+                                    borderRadius: '6px',
+                                    padding: '0.75rem 1.5rem',
+                                    background: '#dc3545',
+                                    border: 'none'
+                                }}
+                            >
+                                Stop Lab
+                            </Button>
+                        </div>
+
+                        {labStatus === 'running' && (
+                            <div className="mt-3 d-flex gap-2 justify-content-center">
+                                <Button
+                                    variant="primary"
+                                    onClick={handleOpenCommandModal}
+                                    disabled={labStatus === 'reloading'}
+                                    style={{
+                                        minWidth: '150px',
+                                        fontWeight: 600,
+                                        borderRadius: '6px',
+                                        padding: '0.5rem 1rem',
+                                        background: '#007bff',
+                                        border: 'none'
+                                    }}
+                                >
+                                    ⚡ Run Command
+                                </Button>
+                                <Button
+                                    variant="info"
+                                    onClick={handleOpenRibDiffModal}
+                                    disabled={getRouteServers().length === 0 || labStatus === 'reloading'}
+                                    style={{
+                                        minWidth: '150px',
+                                        fontWeight: 600,
+                                        borderRadius: '6px',
+                                        padding: '0.5rem 1rem',
+                                        background: '#17a2b8',
+                                        border: 'none',
+                                        color: '#ffffff'
+                                    }}
+                                >
+                                    📊 RIB Diff
+                                </Button>
+                                <Button
+                                    variant="warning"
+                                    onClick={handleReloadLab}
+                                    disabled={labStatus === 'reloading'}
+                                    style={{
+                                        minWidth: '150px',
+                                        fontWeight: 600,
+                                        borderRadius: '6px',
+                                        padding: '0.5rem 1rem',
+                                        background: '#ffc107',
+                                        border: 'none',
+                                        color: '#212529'
+                                    }}
+                                >
+                                    {labStatus === 'reloading' ? (
+                                        <>
+                                            <Spinner animation="border" size="sm" className="me-2" />
+                                            Reloading...
+                                        </>
+                                    ) : (
+                                        '🔄 Reload Config'
+                                    )}
+                                </Button>
                             </div>
                         )}
-                    </Card.Body>
-                </Card>
-            )}
+                    </Col>
+                </Row>
 
-            {/* Run Command Modal */}
-            <Modal show={showCommandModal} onHide={handleCloseCommandModal} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>⚡ Execute Command</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Select Device</Form.Label>
+                <div className="mt-3 pt-3" style={{ borderTop: '1px solid #dee2e6' }}>
+                    <Row>
+                        <Col md={12} className="text-center">
+                            <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: 0 }}>
+                                {labStatus === 'stopped' && '💡 Lab is ready to start. Select a configuration file and press Start.'}
+                                {labStatus === 'starting' && 'Initializing containers and network configuration...'}
+                                {labStatus === 'running' && 'Lab is operational. All services are active.'}
+                                {labStatus === 'stopping' && 'Terminating processes and cleaning resources...'}
+                                {labStatus === 'reloading' && '🔄 Updating configurations and restarting services...'}
+                            </p>
+                        </Col>
+                    </Row>
+                </div>
+            </Card.Body>
+        </Card>
+
+            {/* Devices and Statistics Card */ }
+    {
+        labStatus === 'running' && (
+            <Card style={{
+                background: '#ffffff',
+                border: '1px solid #dee2e6',
+                borderRadius: '8px'
+            }}>
+                <Card.Header style={{
+                    background: '#f8f9fa',
+                    borderBottom: '1px solid #dee2e6',
+                    padding: '1rem 1.5rem',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <h5 style={{ marginBottom: 0, fontWeight: 600, color: '#212529' }}>
+                        Lab Devices ({devices.length})
+                    </h5>
+
+                    <div className="d-flex align-items-center gap-3">
+                        <InputGroup size="sm" style={{ maxWidth: '150px' }}>
+                            <InputGroup.Text>Refresh</InputGroup.Text>
+                            <Form.Control
+                                type="number"
+                                min="1"
+                                max="300"
+                                value={pollingInterval}
+                                onChange={(e) => handlePollingIntervalChange(e.target.value)}
+                                disabled={!statsPollingEnabled}
+                                className="text-center"
+                                style={{ fontWeight: 600 }}
+                            />
+                            <InputGroup.Text>sec</InputGroup.Text>
+                        </InputGroup>
+
+                        <Form.Check
+                            type="switch"
+                            id="stats-polling-switch"
+                            label={
+                                <span style={{ color: '#495057', fontWeight: 500 }}>
+                                    Auto-refresh
+                                    {statsPollingEnabled && (
+                                        <Spinner animation="grow" size="sm" className="ms-2" variant="primary" />
+                                    )}
+                                </span>
+                            }
+                            checked={statsPollingEnabled}
+                            onChange={(e) => setStatsPollingEnabled(e.target.checked)}
+                            style={{ fontSize: '0.95rem' }}
+                        />
+                    </div>
+                </Card.Header>
+                <Card.Body style={{ padding: 0 }}>
+                    {devices.length === 0 ? (
+                        <div className="text-center p-5" style={{ color: '#6c757d' }}>
+                            <Spinner animation="border" size="sm" className="me-2" />
+                            Loading devices...
+                        </div>
+                    ) : (
+                        <div className="p-3">
+                            {devices.map((device, idx) => (
+                                <Card key={idx} className="mb-3" style={{
+                                    border: '1px solid #dee2e6',
+                                    borderRadius: '6px'
+                                }}>
+                                    <Card.Body className="p-3">
+                                        <Row className="align-items-center mb-3">
+                                            <Col md={6}>
+                                                <h6 style={{ marginBottom: '0.5rem', fontWeight: 600, color: '#212529' }}>
+                                                    {device.name}
+                                                </h6>
+                                                <div>
+                                                    {getDeviceStatusBadge(device.status)}
+                                                    <Badge bg="info" className="ms-2">
+                                                        {device.interfaces} interfaces
+                                                    </Badge>
+                                                    <small className="ms-2 text-muted">Uptime: {device.uptime}</small>
+                                                </div>
+                                            </Col>
+                                            <Col md={6} className="text-md-end">
+                                                <small className="text-muted" style={{ fontWeight: 500 }}>
+                                                    RX: {device.network_rx_mb} MB | TX: {device.network_tx_mb} MB
+                                                </small>
+                                            </Col>
+                                        </Row>
+
+                                        <Row>
+                                            <Col md={6} className="mb-2">
+                                                <div className="d-flex justify-content-between mb-1">
+                                                    <small style={{ fontWeight: 600, color: '#495057' }}>CPU</small>
+                                                    <small style={{ fontWeight: 600, color: '#212529' }}>{device.cpu_percent}%</small>
+                                                </div>
+                                                <ProgressBar
+                                                    now={device.cpu_percent}
+                                                    variant={getProgressVariant(device.cpu_percent)}
+                                                    style={{ height: '8px' }}
+                                                />
+                                            </Col>
+                                            <Col md={6} className="mb-2">
+                                                <div className="d-flex justify-content-between mb-1">
+                                                    <small style={{ fontWeight: 600, color: '#495057' }}>Memory</small>
+                                                    <small style={{ fontWeight: 600, color: '#212529' }}>{device.memory_percent}%</small>
+                                                </div>
+                                                <ProgressBar
+                                                    now={device.memory_percent}
+                                                    variant={getProgressVariant(device.memory_percent)}
+                                                    style={{ height: '8px' }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                    </Card.Body>
+                                </Card>
+                            ))}
+                        </div>
+                    )}
+                </Card.Body>
+            </Card>
+        )
+    }
+
+    {/* Run Command Modal */ }
+    <Modal show={showCommandModal} onHide={handleCloseCommandModal} size="lg">
+        <Modal.Header closeButton>
+            <Modal.Title>⚡ Execute Command</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Form.Group className="mb-3">
+                <Form.Label>Select Device</Form.Label>
+                <Form.Select
+                    value={selectedDevice}
+                    onChange={(e) => setSelectedDevice(e.target.value)}
+                >
+                    {devices.map((device) => (
+                        <option key={device.name} value={device.name}>
+                            {device.name}
+                        </option>
+                    ))}
+                </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+                <Form.Label>Command</Form.Label>
+                <Form.Control
+                    type="text"
+                    placeholder="Enter command (e.g., ip addr, vtysh -c 'show ip bgp summary')"
+                    value={command}
+                    onChange={(e) => setCommand(e.target.value)}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter' && !commandLoading) {
+                            handleExecuteCommand();
+                        }
+                    }}
+                />
+            </Form.Group>
+
+            {commandError && <Alert variant="danger">{commandError}</Alert>}
+
+            {commandOutput && (
+                <div>
+                    <Form.Label>Output:</Form.Label>
+                    <pre style={{
+                        backgroundColor: '#f8f9fa',
+                        padding: '1rem',
+                        borderRadius: '4px',
+                        maxHeight: '400px',
+                        overflowY: 'auto',
+                        fontSize: '0.85rem',
+                        whiteSpace: 'pre-wrap'
+                    }}>
+                        {commandOutput}
+                    </pre>
+                </div>
+            )}
+        </Modal.Body>
+        <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseCommandModal}>
+                Close
+            </Button>
+            <Button
+                variant="primary"
+                onClick={handleExecuteCommand}
+                disabled={commandLoading || !selectedDevice || !command.trim()}
+            >
+                {commandLoading ? (
+                    <>
+                        <Spinner animation="border" size="sm" className="me-2" />
+                        Executing...
+                    </>
+                ) : (
+                    'Execute'
+                )}
+            </Button>
+        </Modal.Footer>
+    </Modal>
+
+    {/* RIB Diff Modal */ }
+    <Modal show={showRibDiffModal} onHide={handleCloseRibDiffModal} size="xl">
+        <Modal.Header closeButton>
+            <Modal.Title>📊 RIB Diff Analysis</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <Row className="mb-3">
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Label>Route Server</Form.Label>
                         <Form.Select
-                            value={selectedDevice}
-                            onChange={(e) => setSelectedDevice(e.target.value)}
+                            value={selectedRouteServer}
+                            onChange={(e) => setSelectedRouteServer(e.target.value)}
                         >
-                            {devices.map((device) => (
-                                <option key={device.name} value={device.name}>
-                                    {device.name}
+                            {getRouteServers().map((rs) => (
+                                <option key={rs.name} value={rs.name}>
+                                    {rs.name}
                                 </option>
                             ))}
                         </Form.Select>
                     </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Command</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter command (e.g., ip addr, vtysh -c 'show ip bgp summary')"
-                            value={command}
-                            onChange={(e) => setCommand(e.target.value)}
-                            onKeyPress={(e) => {
-                                if (e.key === 'Enter' && !commandLoading) {
-                                    handleExecuteCommand();
-                                }
-                            }}
-                        />
+                </Col>
+                <Col md={6}>
+                    <Form.Group>
+                        <Form.Label>IP Version</Form.Label>
+                        <Form.Select
+                            value={selectedIpVersion}
+                            onChange={(e) => setSelectedIpVersion(e.target.value)}
+                        >
+                            <option value="4">IPv4</option>
+                            <option value="6">IPv6</option>
+                        </Form.Select>
                     </Form.Group>
+                </Col>
+            </Row>
 
-                    {commandError && <Alert variant="danger">{commandError}</Alert>}
+            {ribDiffError && <Alert variant="danger">{ribDiffError}</Alert>}
 
-                    {commandOutput && (
-                        <div>
-                            <Form.Label>Output:</Form.Label>
-                            <pre style={{
-                                backgroundColor: '#f8f9fa',
-                                padding: '1rem',
-                                borderRadius: '4px',
-                                maxHeight: '400px',
-                                overflowY: 'auto',
-                                fontSize: '0.85rem',
-                                whiteSpace: 'pre-wrap'
-                            }}>
-                                {commandOutput}
-                            </pre>
-                        </div>
-                    )}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseCommandModal}>
-                        Close
-                    </Button>
-                    <Button
-                        variant="primary"
-                        onClick={handleExecuteCommand}
-                        disabled={commandLoading || !selectedDevice || !command.trim()}
-                    >
-                        {commandLoading ? (
-                            <>
-                                <Spinner animation="border" size="sm" className="me-2" />
-                                Executing...
-                            </>
-                        ) : (
-                            'Execute'
-                        )}
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
-            {/* RIB Diff Modal */}
-            <Modal show={showRibDiffModal} onHide={handleCloseRibDiffModal} size="xl">
-                <Modal.Header closeButton>
-                    <Modal.Title>📊 RIB Diff Analysis</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Row className="mb-3">
-                        <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>Route Server</Form.Label>
-                                <Form.Select
-                                    value={selectedRouteServer}
-                                    onChange={(e) => setSelectedRouteServer(e.target.value)}
-                                >
-                                    {getRouteServers().map((rs) => (
-                                        <option key={rs.name} value={rs.name}>
-                                            {rs.name}
-                                        </option>
-                                    ))}
-                                </Form.Select>
-                            </Form.Group>
-                        </Col>
-                        <Col md={6}>
-                            <Form.Group>
-                                <Form.Label>IP Version</Form.Label>
-                                <Form.Select
-                                    value={selectedIpVersion}
-                                    onChange={(e) => setSelectedIpVersion(e.target.value)}
-                                >
-                                    <option value="4">IPv4</option>
-                                    <option value="6">IPv6</option>
-                                </Form.Select>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-
-                    {ribDiffError && <Alert variant="danger">{ribDiffError}</Alert>}
-
-                    {renderRibDiffResult()}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseRibDiffModal}>
-                        Close
-                    </Button>
-                    <Button
-                        variant="primary"
-                        onClick={handleExecuteRibDiff}
-                        disabled={ribDiffLoading || !selectedRouteServer}
-                    >
-                        {ribDiffLoading ? (
-                            <>
-                                <Spinner animation="border" size="sm" className="me-2" />
-                                Analyzing...
-                            </>
-                        ) : (
-                            'Run Diff'
-                        )}
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </Container>
+            {renderRibDiffResult()}
+        </Modal.Body>
+        <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseRibDiffModal}>
+                Close
+            </Button>
+            <Button
+                variant="primary"
+                onClick={handleExecuteRibDiff}
+                disabled={ribDiffLoading || !selectedRouteServer}
+            >
+                {ribDiffLoading ? (
+                    <>
+                        <Spinner animation="border" size="sm" className="me-2" />
+                        Analyzing...
+                    </>
+                ) : (
+                    'Run Diff'
+                )}
+            </Button>
+        </Modal.Footer>
+    </Modal>
+        </Container >
     );
 };
 
